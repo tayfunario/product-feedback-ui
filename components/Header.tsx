@@ -3,13 +3,17 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { GrClose } from "react-icons/gr";
 import { GoDotFill } from "react-icons/go";
+import Link from "next/link";
 
 const sidebarVariants = {
+  initial: {
+    x: "70vw",
+  },
   open: {
-    clipPath: "circle(600px at 50% 40%)",
+    x: "0vw",
   },
   closed: {
-    clipPath: "circle(0px at 250px 50px)",
+    x: "70vw",
   },
 };
 
@@ -45,14 +49,16 @@ export default function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.1 }}
+            transition={{ duration: 0.3 }}
             className="fixed w-full h-screen bg-black"
+            onClick={() => setIsMenuOpen(false)}
           />
         )}
       </AnimatePresence>
 
       <motion.div
         variants={sidebarVariants}
+        initial="initial"
         animate={isMenuOpen ? "open" : "closed"}
         className="fixed right-0 h-screen w-72 bg-F7F p-5 z-30"
       >
@@ -68,29 +74,35 @@ export default function Header() {
         <div className="sidebar-box">
           <div className="flex justify-between items-baseline w-full">
             <h3 className="h3-bold text-3A4">Roadmap</h3>
-            <span className="body-3 text-466 underline underline-offset-2">
+            <Link
+              href="/roadmap"
+              className="body-3 text-466 underline underline-offset-2"
+            >
               View
-            </span>
+            </Link>
           </div>
 
-          <ul className="mt-7">
-            <li className="flex">
+          <ul className="mt-7 w-full">
+            <li className="flex justify-between">
               <div className="flex items-center body-1 text-647">
                 <GoDotFill className="text-F49 mr-2" />
                 Planned
               </div>
+              <span className="font-bold text-647">2</span>
             </li>
-            <li className="flex">
+            <li className="flex justify-between items-center">
               <div className="flex items-center my-2 body-1 text-647">
                 <GoDotFill className="text-AD1 mr-2" />
                 In-Progress
               </div>
+              <span className="font-bold text-647">3</span>
             </li>
-            <li className="flex">
+            <li className="flex justify-between">
               <div className="flex items-center body-1 text-647">
                 <GoDotFill className="text-62B mr-2" />
                 Live
               </div>
+              <span className="font-bold text-647">1</span>
             </li>
           </ul>
         </div>
