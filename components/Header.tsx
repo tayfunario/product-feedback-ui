@@ -2,6 +2,7 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { GrClose } from "react-icons/gr";
+import { GoDotFill } from "react-icons/go";
 
 const sidebarVariants = {
   open: {
@@ -16,7 +17,6 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    // toggle isMenuOpen when i click #toggle-btn
     const toggleBtn = document.getElementById("toggle-btn");
     toggleBtn!.addEventListener("click", () => {
       setIsMenuOpen((isMenuOpen) => !isMenuOpen);
@@ -56,7 +56,44 @@ export default function Header() {
         animate={isMenuOpen ? "open" : "closed"}
         className="fixed right-0 h-screen w-72 bg-F7F p-5 z-30"
       >
-        <div className="sidebar-box">AAAA</div>
+        <div className="sidebar-box">
+          <button className="sidebar-item">All</button>
+          <button className="sidebar-item">UI</button>
+          <button className="sidebar-item">UX</button>
+          <button className="sidebar-item">Enhancement</button>
+          <button className="sidebar-item">Bug</button>
+          <button className="sidebar-item">Feature</button>
+        </div>
+
+        <div className="sidebar-box">
+          <div className="flex justify-between items-baseline w-full">
+            <h3 className="h3-bold text-3A4">Roadmap</h3>
+            <span className="body-3 text-466 underline underline-offset-2">
+              View
+            </span>
+          </div>
+
+          <ul className="mt-7">
+            <li className="flex">
+              <div className="flex items-center body-1 text-647">
+                <GoDotFill className="text-F49 mr-2" />
+                Planned
+              </div>
+            </li>
+            <li className="flex">
+              <div className="flex items-center my-2 body-1 text-647">
+                <GoDotFill className="text-AD1 mr-2" />
+                In-Progress
+              </div>
+            </li>
+            <li className="flex">
+              <div className="flex items-center body-1 text-647">
+                <GoDotFill className="text-62B mr-2" />
+                Live
+              </div>
+            </li>
+          </ul>
+        </div>
       </motion.div>
     </div>
   );

@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   @apply font-jost;
 }
@@ -38,5 +37,9 @@ h2-bold {
 }
 
 .sidebar-box {
-  @apply bg-white rounded-[8px];
+  @apply bg-white flex flex-wrap rounded-lg p-6 mb-6;
+}
+
+.sidebar-item {
+  @apply inline rounded-xl px-[18px] py-2 m-1 body-3 bg-F2F text-466 hover:bg-CFD focus:bg-466 focus:text-white;
 }
