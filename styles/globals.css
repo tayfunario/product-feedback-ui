@@ -36,10 +36,26 @@ h2-bold {
   @apply text-[13px] font-semibold leading-[19px];
 }
 
+.bold-13 {
+  @apply text-[13px] font-bold text-3A4;
+}
+
 .sidebar-box {
   @apply bg-white flex flex-wrap rounded-lg p-6 mb-6;
 }
 
 .sidebar-item {
   @apply inline rounded-xl px-[18px] py-2 m-1 body-3 bg-F2F text-466 hover:bg-CFD focus:bg-466 focus:text-white;
+}
+
+.button-1 {
+  @apply bg-AD1 text-F2F px-3 py-2 text-[13px] font-bold rounded-lg hover:bg-[#C75AF6];
+}
+
+.sugg-type {
+  @apply inline rounded-xl px-4 py-[6px] body-3 bg-F2F text-466;
+}
+
+.upvote-btn:focus .upvote-icon {
+  @apply text-white
 }
