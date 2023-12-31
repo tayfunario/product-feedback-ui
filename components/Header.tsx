@@ -1,19 +1,18 @@
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { GrClose } from "react-icons/gr";
 import { GoDotFill } from "react-icons/go";
 import Link from "next/link";
 
 const sidebarVariants = {
   initial: {
-    x: "70vw",
+    x: "80vw",
   },
   open: {
     x: "0vw",
   },
   closed: {
-    x: "70vw",
+    x: "80vw",
   },
 };
 
@@ -21,14 +20,19 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    const toggleBtn = document.getElementById("toggle-btn");
-    toggleBtn!.addEventListener("click", () => {
-      setIsMenuOpen((isMenuOpen) => !isMenuOpen);
+    // closes sidebar when user clicks outside of it
+    document.addEventListener("click", (e) => {
+      if (
+        !(e.target as HTMLInputElement).closest("#sidebar") &&
+        !(e.target as HTMLInputElement).closest("#sidebar-btn")
+      ) {
+        setIsMenuOpen(false);
+      }
     });
   }, []);
 
   return (
-    <div>
+    <header>
       <Image
         src="/background-mobile.png"
         width={500}
@@ -40,7 +44,24 @@ export default function Header() {
           <h2>Frontend Mentor</h2>
           <p className="font-normal text-[13px]">Feedback Board</p>
         </div>
-        <GrClose id="toggle-btn" className="w-6 h-6 hover:cursor-pointer" />
+
+        {isMenuOpen ? (
+          <button id="sidebar-btn">
+            <img
+              src="/icon-close.svg"
+              alt="close"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            />
+          </button>
+        ) : (
+          <button id="sidebar-btn">
+            <img
+              src="/icon-hamburger.svg"
+              alt="hamburger"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            />
+          </button>
+        )}
       </div>
 
       <AnimatePresence>
@@ -50,8 +71,7 @@ export default function Header() {
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed w-full h-screen bg-black"
-            onClick={() => setIsMenuOpen(false)}
+            className="fixed w-full h-screen bg-black z-40"
           />
         )}
       </AnimatePresence>
@@ -60,7 +80,8 @@ export default function Header() {
         variants={sidebarVariants}
         initial="initial"
         animate={isMenuOpen ? "open" : "closed"}
-        className="fixed right-0 h-screen w-72 bg-F7F p-5 z-30"
+        id="sidebar"
+        className="fixed right-0 h-screen w-72 bg-F7F p-5 z-50"
       >
         <div className="sidebar-box">
           <button className="sidebar-item">All</button>
@@ -107,6 +128,6 @@ export default function Header() {
           </ul>
         </div>
       </motion.div>
-    </div>
+    </header>
   );
 }
