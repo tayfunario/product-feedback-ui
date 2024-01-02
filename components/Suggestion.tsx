@@ -1,9 +1,17 @@
+import Link from "next/link";
 import Comments from "./Comments";
 import Upvote from "./Upvote";
 
-export default function Suggestion() {
+export default function Suggestion({
+  category,
+  description,
+  id,
+  status,
+  title,
+  upvotes,
+}: SuggestionProps) {
   return (
-    <div className="bg-white rounded-lg mt-5 p-5">
+    <Link href={`/suggestions/${id}`} className="block bg-white rounded-lg mt-5 p-5">
       <div className="order-first col-span-8">
         <h2 className="bold-13">Add tags for solutions</h2>
         <p className="text-[13px] text-647 my-3">
@@ -16,6 +24,6 @@ export default function Suggestion() {
         <Upvote />
         <Comments />
       </div>
-    </div>
+    </Link>
   );
 }
