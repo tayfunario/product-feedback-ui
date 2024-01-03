@@ -13,7 +13,7 @@ export default function Suggestion({
   return (
     <Link href={`/suggestions/${id}`} className="block bg-white rounded-lg mt-5 p-5">
       <div className="order-first col-span-8">
-        <h2 className="bold-13">Add tags for solutions</h2>
+        <h2 className="bold-13 text-3A4">Add tags for solutions</h2>
         <p className="text-[13px] text-647 my-3">
           Easier to search for solutions based on a specific stack.
         </p>

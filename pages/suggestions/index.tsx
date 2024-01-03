@@ -14,7 +14,7 @@ export default function Index({ data }) {
     <Layout>
       <Header />
       <Top sort={sort} setSort={setSort} />
-      <div className="mx-7 pt-6 pb-14">
+      <main className="mx-7 pt-6 pb-14">
         {suggestions.length ? (
           suggestions.map((suggestion) => (
             <Suggestion key={suggestion.id} {...suggestion} />
@@ -22,7 +22,7 @@ export default function Index({ data }) {
         ) : (
           <Empty />
         )}
-      </div>
+      </main>
     </Layout>
   );
 }
