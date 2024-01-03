@@ -44,9 +44,11 @@ export default function Comment({
           <button className="button-1 mt-3">Post Reply</button>
         </div>
       )}
-      {replies.map((reply, index) => (
-        <Reply key={index} {...reply} />
-      ))}
+      <div className={replies.length ? "mt-5" : ""}>
+        {replies.map((reply, index) => (
+          <Reply key={index} {...reply} />
+        ))}
+      </div>
     </article>
   );
 }

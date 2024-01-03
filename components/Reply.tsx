@@ -7,7 +7,7 @@ export default function Reply({
   user_name,
 }: ReplyProps) {
   return (
-    <div className="w-11/12 py-3 ml-auto">
+    <div className="py-3 border-l pl-5">
       <div className="flex items-center">
         <img
           src={`/user-images/${user_image}`}
