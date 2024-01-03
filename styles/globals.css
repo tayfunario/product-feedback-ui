@@ -37,7 +37,7 @@ h2-bold {
 }
 
 .bold-13 {
-  @apply text-[13px] font-bold text-3A4;
+  @apply text-[13px] font-bold;
 }
 
 .sidebar-box {
@@ -50,6 +50,10 @@ h2-bold {
 
 .button-1 {
   @apply bg-AD1 text-F2F px-3 py-2 text-[13px] font-bold rounded-lg hover:bg-[#C75AF6];
+}
+
+.button-2 {
+  @apply bg-466 bold-13 text-F2F px-3 py-2 rounded-lg hover:bg-[#7C91F9];
 }
 
 .sugg-type {

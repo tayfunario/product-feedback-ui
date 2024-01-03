@@ -16,3 +16,21 @@ interface SuggestionProps {
   title: string;
   upvotes: number;
 }
+
+interface CommentProps {
+  content: string;
+  id: number;
+  nick_name: string;
+  request_id: number;
+  user_image: string;
+  user_name: string;
+}
+
+interface ReplyProps {
+  comment_id: number;
+  content: string;
+  nick_name: string;
+  replying_to: string;
+  user_image: string;
+  user_name: string;
+}
