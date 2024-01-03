@@ -38,7 +38,7 @@ export default function Reply({
           <input
             type="textarea"
             className="w-full mt-5 px-3 py-2 text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
-            placeholder="Reply..."
+            placeholder="Type your comment here"
           />
           <button className="button-1 mt-3">Post Reply</button>
         </div>

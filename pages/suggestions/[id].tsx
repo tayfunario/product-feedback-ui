@@ -9,7 +9,8 @@ export default function Detail({ data }) {
   const [totalComments, setTotalComments] = useState<number>(
     data.comments.length + data.replies.length
   );
-  console.log(data);
+  const [newComment, setNewComment] = useState<string>("");
+
   return (
     <Layout>
       <div className="mx-7 pt-6 pb-14">
@@ -39,6 +40,24 @@ export default function Detail({ data }) {
             ))}
           </div>
         </div>
+
+        <footer className="bg-white rounded-lg mt-5 p-5">
+          <h2 className="h3-bold">Add Comment</h2>
+          <textarea
+            className="w-full mt-5 px-3 py-2 text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
+            placeholder="Type your comment here"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            rows={3}
+            maxLength={250}
+          />
+          <div className="flex justify-between items-center mt-3">
+            <span className="text-[13px] text-647">
+              {250 - newComment.length} Characters left
+            </span>
+            <button className="button-1">Post Comment</button>
+          </div>
+        </footer>
       </div>
     </Layout>
   );
