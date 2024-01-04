@@ -1,6 +1,6 @@
 import Layout from "../../components/Layout";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import Dropdown from "../../components/Dropdown";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
@@ -8,6 +8,24 @@ import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 export default function New() {
   const [category, setCategory] = useState<string>("Feature");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  // Checks if inputs are empty on submit
+  const checkInputs = () => {
+    const inputs = document.querySelectorAll("input, textarea");
+    inputs.forEach((input) => {
+      if ((input as HTMLInputElement).value === "") {
+        input.classList.add("border-red-500");
+        input.classList.remove("border-466");
+        input.nextElementSibling!.classList.remove("invisible");
+      }
+    });
+  };
+
+  // Resets input style on change
+  const resetInputStyle = (elem: HTMLElement) => {
+    elem.classList.remove("border-red-500");
+    elem.nextElementSibling!.classList.add("invisible");
+  };
 
   return (
     <Layout>
@@ -37,7 +55,12 @@ export default function New() {
               <input
                 type="text"
                 className="w-full mt-2 p-3 text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
+                maxLength={60}
+                onChange={(e) => resetInputStyle(e.target)}
               />
+              <p className="invisible text-[10px] text-[#D73737]">
+                Can't be empty
+              </p>
             </fieldset>
 
             <fieldset className="relative mt-6">
@@ -53,7 +76,11 @@ export default function New() {
                 } w-full flex justify-between items-center mt-2 p-3 text-start text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent`}
               >
                 {category}
-                {isOpen ? <FaAngleUp className="text-466" /> : <FaAngleDown className="text-466" />}
+                {isOpen ? (
+                  <FaAngleUp className="text-466" />
+                ) : (
+                  <FaAngleDown className="text-466" />
+                )}
               </button>
 
               <AnimatePresence>
@@ -79,10 +106,20 @@ export default function New() {
                 className="w-full mt-2 px-3 py-2 text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
                 rows={4}
                 maxLength={250}
+                onChange={(e) => resetInputStyle(e.target)}
               />
+              <p className="invisible text-[10px] mt-[-7px] text-[#D73737]">
+                Can't be empty
+              </p>
             </fieldset>
-            <button className="button-1 w-full mt-6">Add Feedback</button>
-            <button className="button-3 w-full mt-3">Cancel</button>
+
+            <button
+              className="button-1 w-full mt-6"
+              onClick={() => checkInputs()}
+            >
+              Add Feedback
+            </button>
+            <Link href="/suggestions" className="button-3 block text-center mt-3">Cancel</Link>
           </form>
         </div>
       </div>
