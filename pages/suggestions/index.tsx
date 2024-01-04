@@ -8,12 +8,12 @@ import Empty from "../../components/Empty";
 export default function Index({ data }) {
   const [suggestions, setSuggestions] = useState<SuggestionProps[]>([...data]);
   const [chosenFilter, setChosenFilter] = useState<string>("Most Upvotes");
-  const [sort, setSort] = useState<string>("Most Upvotes");
+  const [chosenSort, setChosenSort] = useState<string>("Most Upvotes");
 
   return (
     <Layout>
       <Header />
-      <Top sort={sort} setSort={setSort} />
+      <Top sort={chosenSort} setSort={setChosenSort} />
       <main className="mx-7 pt-6 pb-14">
         {suggestions.length ? (
           suggestions.map((suggestion) => (
