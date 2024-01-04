@@ -3,10 +3,12 @@ interface TopProps {
   setSort: (sort: string) => void;
 }
 
-interface SortProps {
+interface ToggleProps {
   chosen: string;
   values: string[];
   callback: (param: string) => void;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
 interface SuggestionProps {

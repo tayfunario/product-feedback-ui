@@ -1,26 +1,14 @@
 import { TiPlus } from "react-icons/ti";
-import Toggle from "./Toggle";
+import Dropdown from "./Dropdown";
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 
 export default function Top({ sort, setSort }: TopProps) {
   const [open, setOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    // closes toggler when user clicks outside of it
-    document.addEventListener("click", (e) => {
-      if (
-        !(e.target as HTMLInputElement).closest("#toggle-div") &&
-        !(e.target as HTMLInputElement).closest("#toggle-btn")
-      ) {
-        setOpen(false);
-      }
-    });
-  }, []);
-
   return (
     <div className="flex justify-between items-center bg-373 text-F2F px-4 text-[13px]">
-      <div className="relative">
+      <div className="relative py-5">
         <span>Sort by:</span>
         <button
           id="toggle-btn"
@@ -45,7 +33,7 @@ export default function Top({ sort, setSort }: TopProps) {
 
         <AnimatePresence>
           {open && (
-            <Toggle
+            <Dropdown
               chosen={sort}
               values={[
                 "Most Upvotes",
@@ -54,6 +42,8 @@ export default function Top({ sort, setSort }: TopProps) {
                 "Least Comments",
               ]}
               callback={setSort}
+              isOpen={open}
+              setIsOpen={setOpen}
             />
           )}
         </AnimatePresence>

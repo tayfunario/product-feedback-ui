@@ -1,7 +1,14 @@
 import Layout from "../../components/Layout";
 import Link from "next/link";
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import Dropdown from "../../components/Dropdown";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 export default function New() {
+  const [category, setCategory] = useState<string>("Feature");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <Layout>
       <div className="mx-7 pt-8 pb-14">
@@ -33,15 +40,33 @@ export default function New() {
               />
             </fieldset>
 
-            <fieldset className="mt-6">
+            <fieldset className="relative mt-6">
               <legend className="bold-13 text-3A4">Category</legend>
               <p className="text-[13px] text-647">
                 Choose a category for your feedback
               </p>
-              <input
-                type="text"
-                className="w-full mt-2 p-3 text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
-              />
+              <button
+                id="toggle-btn"
+                onClick={() => setIsOpen(!isOpen)}
+                className={`${
+                  isOpen ? "border-466" : "border-transparent"
+                } w-full flex justify-between items-center mt-2 p-3 text-start text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent`}
+              >
+                {category}
+                {isOpen ? <FaAngleUp className="text-466" /> : <FaAngleDown className="text-466" />}
+              </button>
+
+              <AnimatePresence>
+                {isOpen && (
+                  <Dropdown
+                    chosen={category}
+                    values={["Feature", "UI", "UX", "Enhancement", "Bug"]}
+                    callback={setCategory}
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                  />
+                )}
+              </AnimatePresence>
             </fieldset>
 
             <fieldset className="mt-6">
@@ -52,7 +77,7 @@ export default function New() {
               </p>
               <textarea
                 className="w-full mt-2 px-3 py-2 text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
-                rows={3}
+                rows={4}
                 maxLength={250}
               />
             </fieldset>
