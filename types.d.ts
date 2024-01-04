@@ -4,8 +4,9 @@ interface TopProps {
 }
 
 interface SortProps {
-  sort: string;
-  setSort: (sort: string) => void;
+  chosen: string;
+  values: string[];
+  callback: (param: string) => void;
 }
 
 interface SuggestionProps {

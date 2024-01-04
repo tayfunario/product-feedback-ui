@@ -1,5 +1,5 @@
 import { TiPlus } from "react-icons/ti";
-import SortToggle from "./SortToggle";
+import Toggle from "./Toggle";
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 
@@ -44,7 +44,18 @@ export default function Top({ sort, setSort }: TopProps) {
         </button>
 
         <AnimatePresence>
-          {open && <SortToggle sort={sort} setSort={setSort} />}
+          {open && (
+            <Toggle
+              chosen={sort}
+              values={[
+                "Most Upvotes",
+                "Least Upvotes",
+                "Most Comments",
+                "Least Comments",
+              ]}
+              callback={setSort}
+            />
+          )}
         </AnimatePresence>
       </div>
 
