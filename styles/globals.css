@@ -60,10 +60,14 @@ h2-bold {
   @apply bg-3A4 bold-13 text-F2F px-3 py-2 rounded-lg hover:bg-[#656EA3];
 }
 
+.button-4 {
+  @apply bg-[#D73737] bold-13 text-F2F px-3 py-2 rounded-lg hover:bg-[#E98888];
+}
+
 .sugg-type {
   @apply inline rounded-xl px-4 py-[6px] body-3 bg-F2F text-466;
 }
 
 .upvote-btn:focus .upvote-icon {
-  @apply text-white
+  @apply text-white;
 }

@@ -18,18 +18,19 @@ export default function Dropdown({
   callback,
   isOpen,
   setIsOpen,
-}: ToggleProps) {
+  targetElem = "#toggle-dropdown",
+}: DropdownProps) {
   useEffect(() => {
     // if user clicks anywhere except #toggle-btn in the app, dropdown automatically closes
     document.addEventListener("click", (e) => {
-      if (!(e.target as HTMLInputElement).closest("#toggle-btn")) {
+      if (!(e.target as HTMLInputElement).closest(targetElem)) {
         setIsOpen(false);
       }
     });
 
     return () => {
       document.removeEventListener("click", (e) => {
-        if (!(e.target as HTMLInputElement).closest("#toggle-btn")) {
+        if (!(e.target as HTMLInputElement).closest(targetElem)) {
           setIsOpen(false);
         }
       });
@@ -44,7 +45,7 @@ export default function Dropdown({
       exit="exit"
       className={`${
         values.includes("Most Upvotes") ? "top-16" : "top-20"
-      } absolute origin-top w-full bg-white text-black text-start divide-y-2 rounded-lg shadow-lg shadow-gray-400`}
+      } absolute origin-top w-full bg-white text-black text-start divide-y-2 rounded-lg shadow-lg shadow-gray-400 z-50`}
     >
       {values.map((value) => (
         <motion.button

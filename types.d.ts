@@ -3,12 +3,13 @@ interface TopProps {
   setSort: (sort: string) => void;
 }
 
-interface ToggleProps {
+interface DropdownProps {
   chosen: string;
   values: string[];
   callback: (param: string) => void;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  targetElem?: string;
 }
 
 interface SuggestionProps {
