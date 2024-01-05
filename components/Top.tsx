@@ -11,7 +11,7 @@ export default function Top({ sort, setSort }: TopProps) {
       <div className="relative py-5">
         <span>Sort by:</span>
         <button
-          id="toggle-btn"
+          id="toggle-dropdown"
           className="font-bold ml-2"
           onClick={() => setOpen(!open)}
         >
