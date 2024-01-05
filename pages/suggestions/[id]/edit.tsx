@@ -141,6 +141,7 @@ export default function Edit({
                 className="w-full mt-2 px-3 py-2 text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
                 rows={4}
                 maxLength={250}
+                defaultValue={description}
                 onChange={(e) => resetInputStyle(e.target)}
               />
               <p className="invisible text-[10px] mt-[-7px] text-[#D73737]">
@@ -152,7 +153,7 @@ export default function Edit({
               className="button-1 w-full mt-6"
               onClick={() => checkInputs()}
             >
-              Add Feedback
+              Save Changes
             </button>
             <Link
               href="/suggestions"

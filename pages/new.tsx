@@ -1,8 +1,8 @@
-import Layout from "../../components/Layout";
+import Layout from "../components/Layout";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
-import Dropdown from "../../components/Dropdown";
+import Dropdown from "../components/Dropdown";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 export default function New() {

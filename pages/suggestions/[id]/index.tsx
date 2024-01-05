@@ -10,7 +10,6 @@ export default function Detail({ data }) {
     data.comments.length + data.replies.length
   );
   const [newComment, setNewComment] = useState<string>("");
-
   return (
     <Layout>
       <div className="mx-7 pt-6 pb-14">
