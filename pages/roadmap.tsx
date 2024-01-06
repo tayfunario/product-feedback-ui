@@ -2,10 +2,30 @@ import Layout from "../components/Layout";
 import Link from "next/link";
 import { TiPlus } from "react-icons/ti";
 import { FaChevronLeft } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import RoadmapItem from "../components/RoadmapItem";
 
-export default function Roadmap() {
-  const [chosen, setChosen] = useState<string>("Planned");
+export default function Roadmap({ data }) {
+  const [chosen, setChosen] = useState<string>("planned");
+  const [roadmapItems, setRoadmapItems] = useState<SuggestionProps[]>([]);
+
+  useEffect(() => {
+    const filteredData = data.filter(
+      (item: SuggestionProps) => item.status === chosen
+    );
+    setRoadmapItems(filteredData);
+  }, [chosen]);
+
+  const planned = data.filter(
+    (item: SuggestionProps) => item.status === "planned"
+  ).length;
+  const inProgress = data.filter(
+    (item: SuggestionProps) => item.status === "in-progress"
+  ).length;
+  const live = data.filter(
+    (item: SuggestionProps) => item.status === "live"
+  ).length;
+
   return (
     <Layout>
       <div className="flex justify-between items-center p-5 bg-373">
@@ -28,49 +48,78 @@ export default function Roadmap() {
       <div className="flex h-14 border-b">
         <button
           className={`w-full bold-13 text-3A4 border-b-4 ${
-            chosen === "Planned"
+            chosen === "planned"
               ? "border-F49"
               : "border-transparent opacity-40"
           }`}
-          onClick={() => setChosen("Planned")}
+          onClick={() => setChosen("planned")}
         >
-          Planned (2)
+          Planned ({planned})
         </button>
         <button
           className={`w-full bold-13 text-3A4 border-b-4 ${
-            chosen === "In-Progress"
+            chosen === "in-progress"
               ? "border-AD1"
               : "border-transparent opacity-40"
           }`}
-          onClick={() => setChosen("In-Progress")}
+          onClick={() => setChosen("in-progress")}
         >
-          In-Progress (3)
+          In-Progress ({inProgress})
         </button>
         <button
           className={`w-full bold-13 text-3A4 border-b-4 ${
-            chosen === "Live" ? "border-62B" : "border-transparent opacity-40"
+            chosen === "live" ? "border-62B" : "border-transparent opacity-40"
           }`}
-          onClick={() => setChosen("Live")}
+          onClick={() => setChosen("live")}
         >
-          Live (1)
+          Live ({live})
         </button>
       </div>
 
       <div className="mx-7 pt-2 pb-14">
-        <h2 className="h3-bold mt-5">{chosen} (2)</h2>
+        {chosen === "planned" && (
+          <h2 className="h3-bold mt-5 text-3A4">Planned ({planned})</h2>
+        )}
+        {chosen === "in-progress" && (
+          <h2 className="h3-bold mt-5 text-3A4">In-Progress ({inProgress})</h2>
+        )}
+        {chosen === "live" && (
+          <h2 className="h3-bold mt-5 text-3A4">Live ({live})</h2>
+        )}
 
-        {chosen === "Planned" && (
+        {chosen === "planned" && (
           <p className="text-647 text-[13px]">Ideas prioritized for research</p>
         )}
-        {chosen === "In-Progress" && (
+        {chosen === "in-progress" && (
           <p className="text-647 text-[13px]">
             Features currently being developed
           </p>
         )}
-        {chosen === "Live" && (
+        {chosen === "live" && (
           <p className="text-647 text-[13px]">Released features</p>
         )}
+
+        {roadmapItems.map((item) => (
+          <RoadmapItem
+            key={item.id}
+            category={item.category}
+            description={item.description}
+            id={item.id}
+            status={item.status}
+            title={item.title}
+            upvotes={item.upvotes}
+          />
+        ))}
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps() {
+  const res = await fetch("http://localhost:4000/roadmap");
+  const data = await res.json();
+
+  return {
+    props: { data },
+  };
 }
