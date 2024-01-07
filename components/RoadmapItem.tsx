@@ -31,7 +31,7 @@ export default function RoadmapItem({
 
   return (
     <Link
-      href={`/suggestions/${id}`}
+      href={`/roadmap/${id}`}
       className="relative block bg-white rounded-lg mt-5 p-5 overflow-hidden"
     >
       <div

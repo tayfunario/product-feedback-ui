@@ -1,9 +1,9 @@
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import Link from "next/link";
 import { TiPlus } from "react-icons/ti";
 import { FaChevronLeft } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import RoadmapItem from "../components/RoadmapItem";
+import RoadmapItem from "../../components/RoadmapItem";
 
 export default function Roadmap({ data }) {
   const [chosen, setChosen] = useState<string>("planned");

@@ -1,9 +1,8 @@
 import Link from "next/link";
-import Layout from "../../../components/Layout";
-import Suggestion from "../../../components/Suggestion";
+import Layout from "../../components/Layout";
+import Suggestion from "../../components/Suggestion";
 import { useState } from "react";
-import Comment from "../../../components/Comment";
-import { AnimatePresence } from "framer-motion";
+import Comment from "../../components/Comment";
 
 export default function Detail({ data }) {
   const [totalComments, setTotalComments] = useState<number>();
@@ -14,7 +13,7 @@ export default function Detail({ data }) {
       <div className="mx-7 pt-6 pb-14">
         <div className="flex justify-between items-center">
           <Link
-            href="/suggestions"
+            href="/roadmap"
             className="flex justify-between items-center w-16 text-647 bold-13"
           >
             <img src="/icon-arrow-left.svg" alt="arrow-left" />
@@ -64,7 +63,7 @@ export default function Detail({ data }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch("http://localhost:4000/suggestions");
+  const res = await fetch("http://localhost:4000/roadmap");
   const data = await res.json();
 
   const paths = data.map((suggestion) => ({
@@ -75,7 +74,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`http://localhost:4000/suggestions/${params.id}`);
+  const res = await fetch(`http://localhost:4000/roadmap/${params.id}`);
   const data = await res.json();
 
   if (!data.suggestion) {
