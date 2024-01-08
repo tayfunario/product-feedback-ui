@@ -108,6 +108,7 @@ export default function Roadmap({ data }) {
             status={item.status}
             title={item.title}
             upvotes={item.upvotes}
+            willNavigate={true}
           />
         ))}
       </div>

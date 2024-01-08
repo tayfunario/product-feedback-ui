@@ -3,7 +3,6 @@ import Layout from "../../../components/Layout";
 import Suggestion from "../../../components/Suggestion";
 import { useState } from "react";
 import Comment from "../../../components/Comment";
-import { AnimatePresence } from "framer-motion";
 
 export default function Detail({ data }) {
   const [totalComments, setTotalComments] = useState<number>();

@@ -19,6 +19,7 @@ interface SuggestionProps {
   status: string;
   title: string;
   upvotes: number;
+  willNavigate: boolean;
 }
 
 interface CommentProps {

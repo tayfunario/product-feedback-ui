@@ -17,7 +17,11 @@ export default function Index({ data }) {
       <main className="mx-7 pt-6 pb-14">
         {suggestions.length ? (
           suggestions.map((suggestion) => (
-            <Suggestion key={suggestion.id} {...suggestion} />
+            <Suggestion
+              key={suggestion.id}
+              {...suggestion}
+              willNavigate={true}
+            />
           ))
         ) : (
           <Empty />

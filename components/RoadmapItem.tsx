@@ -10,6 +10,7 @@ export default function RoadmapItem({
   status,
   title,
   upvotes,
+  willNavigate
 }: SuggestionProps) {
   function setCorrespondingColor() {
     if (status === "planned") return "bg-F49";
