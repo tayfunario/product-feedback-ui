@@ -133,14 +133,13 @@ export default function Header() {
         </motion.div>
       </header>
     );
-  } else if (width < 1000) {
+  } else if (width < 1024) {
     return (
       <header className="flex gap-x-3">
         <div className="relative basis-1/3 flex items-end mb-6 text-white text-[15px] font-bold rounded-lg overflow-hidden">
           <img
             src="/background-tablet.png"
             className="absolute w-full h-full"
-            alt="hamburger"
           />
           <div className="m-3 z-50">
             <h2 className="text-xl">Frontend Mentor</h2>
@@ -193,6 +192,66 @@ export default function Header() {
           </ul>
         </div>
       </header>
+    );
+  } else {
+    return (
+      <aside className="col-span-2">
+        <div className="relative flex items-end mb-6 h-40 text-white font-bold rounded-lg overflow-hidden">
+          <img
+            src="/background-desktop.png"
+            className="absolute w-full h-full"
+          />
+          <div className="m-5 z-50">
+            <h2 className="text-xl">Frontend Mentor</h2>
+            <p className="font-normal body-2 opacity-75">Feedback Board</p>
+          </div>
+        </div>
+
+        <div className="sidebar-box">
+          <button className="sidebar-item">All</button>
+          <button className="sidebar-item">UI</button>
+          <button className="sidebar-item">UX</button>
+          <button className="sidebar-item">Enhancement</button>
+          <button className="sidebar-item">Bug</button>
+          <button className="sidebar-item">Feature</button>
+        </div>
+
+        <div className="sidebar-box">
+          <div className="flex justify-between items-baseline w-full">
+            <h3 className="h3-bold text-3A4">Roadmap</h3>
+            <Link
+              href="/roadmap"
+              className="body-3 text-466 underline underline-offset-2"
+            >
+              View
+            </Link>
+          </div>
+
+          <ul className="mt-7 w-full">
+            <li className="flex justify-between">
+              <div className="flex items-center body-1 text-647">
+                <GoDotFill className="text-F49 mr-2" />
+                Planned
+              </div>
+              <span className="font-bold text-647">2</span>
+            </li>
+            <li className="flex justify-between items-center">
+              <div className="flex items-center my-2 body-1 text-647">
+                <GoDotFill className="text-AD1 mr-2" />
+                In-Progress
+              </div>
+              <span className="font-bold text-647">3</span>
+            </li>
+            <li className="flex justify-between">
+              <div className="flex items-center body-1 text-647">
+                <GoDotFill className="text-62B mr-2" />
+                Live
+              </div>
+              <span className="font-bold text-647">1</span>
+            </li>
+          </ul>
+        </div>
+      </aside>
     );
   }
 }
