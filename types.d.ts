@@ -1,4 +1,5 @@
 interface TopProps {
+  numOfSuggestions: number;
   sort: string;
   setSort: (sort: string) => void;
 }

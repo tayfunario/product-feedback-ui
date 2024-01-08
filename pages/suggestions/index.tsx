@@ -12,11 +12,15 @@ export default function Index({ data }) {
 
   return (
     <Layout>
-      <div className="lg:grid grid-cols-8 max-w-6xl mx-auto">
+      <div className="lg:grid grid-cols-8 gap-x-5 max-w-6xl mx-auto">
         <Header />
         <div className="col-span-6">
-          <Top sort={chosenSort} setSort={setChosenSort} />
-          <main className="mx-7 pt-6 pb-14">
+          <Top
+            numOfSuggestions={suggestions.length}
+            sort={chosenSort}
+            setSort={setChosenSort}
+          />
+          <main className="md:mx-0 mx-7 pb-14">
             {suggestions.length ? (
               suggestions.map((suggestion) => (
                 <Suggestion
