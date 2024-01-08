@@ -40,6 +40,12 @@ h2-bold {
   @apply text-[13px] font-bold;
 }
 
+#header-top {
+  background-image: url("/background-mobile.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .sidebar-box {
   @apply bg-white flex flex-wrap rounded-lg p-6 mb-6;
 }
