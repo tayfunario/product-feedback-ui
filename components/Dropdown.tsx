@@ -45,13 +45,13 @@ export default function Dropdown({
       exit="exit"
       className={`${
         values.includes("Most Upvotes") ? "top-16" : "top-20"
-      } absolute origin-top w-48 bg-white text-black text-start divide-y-2 rounded-lg shadow-lg shadow-gray-400 z-50`}
+      } absolute origin-top w-full bg-white text-black text-start divide-y-2 rounded-lg shadow-lg shadow-gray-400 z-50`}
     >
       {values.map((value) => (
         <motion.button
           key={value}
           variants={btnVariants}
-          className="flex justify-between items-center text-[13px] w-full text-647 p-3 hover:text-AD1"
+          className="flex justify-between items-center md:text-base text-[13px] w-full text-647 p-3 hover:text-AD1"
           onClick={() => callback(value)}
         >
           {value}
