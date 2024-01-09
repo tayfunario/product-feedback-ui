@@ -6,7 +6,7 @@ import Suggestion from "../../components/Suggestion";
 import Empty from "../../components/Empty";
 
 export default function Index({ data }) {
-  const [suggestions, setSuggestions] = useState<SuggestionProps[]>([...data]);
+  const [suggestions, setSuggestions] = useState<SuggestionProps[]>([]);
   const [chosenFilter, setChosenFilter] = useState<string>("Most Upvotes");
   const [chosenSort, setChosenSort] = useState<string>("Most Upvotes");
   const [width, setWidth] = useState<number>(0);
@@ -39,7 +39,7 @@ export default function Index({ data }) {
                 />
               ))
             ) : (
-              <Empty />
+              <Empty width={width} />
             )}
           </main>
         </div>
