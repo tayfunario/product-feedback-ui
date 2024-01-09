@@ -21,6 +21,7 @@ interface SuggestionProps {
   title: string;
   upvotes: number;
   willNavigate: boolean;
+  width: number;
 }
 
 interface CommentProps {

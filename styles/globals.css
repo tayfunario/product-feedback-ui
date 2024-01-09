@@ -74,6 +74,10 @@ h2-bold {
   @apply inline rounded-xl px-4 py-[6px] body-3 bg-F2F text-466;
 }
 
+.sugg-item:hover h2 {
+  @apply text-466;
+}
+
 .upvote-btn:focus .upvote-icon {
   @apply text-white;
 }

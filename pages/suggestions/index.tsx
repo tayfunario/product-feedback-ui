@@ -1,6 +1,6 @@
 import Layout from "../../components/Layout";
 import Header from "../../components/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Top from "../../components/Top";
 import Suggestion from "../../components/Suggestion";
 import Empty from "../../components/Empty";
@@ -9,6 +9,14 @@ export default function Index({ data }) {
   const [suggestions, setSuggestions] = useState<SuggestionProps[]>([...data]);
   const [chosenFilter, setChosenFilter] = useState<string>("Most Upvotes");
   const [chosenSort, setChosenSort] = useState<string>("Most Upvotes");
+  const [width, setWidth] = useState<number>(0);
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+  }, []);
 
   return (
     <Layout>
@@ -27,6 +35,7 @@ export default function Index({ data }) {
                   key={suggestion.id}
                   {...suggestion}
                   willNavigate={true}
+                  width={width}
                 />
               ))
             ) : (
