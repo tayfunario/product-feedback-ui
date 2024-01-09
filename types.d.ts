@@ -40,4 +40,5 @@ interface ReplyProps {
   replying_to: string;
   user_image: string;
   user_name: string;
+  width: number
 }
