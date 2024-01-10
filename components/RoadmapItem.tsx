@@ -11,7 +11,7 @@ export default function RoadmapItem({
   title,
   upvotes,
   willNavigate,
-  width
+  width,
 }: SuggestionProps) {
   function setCorrespondingColor() {
     if (status === "planned") return "bg-F49";
@@ -44,11 +44,15 @@ export default function RoadmapItem({
         <GoDotFill
           className={`inline size-4 mr-1 my-2 ${setCorrespondingColorText()}`}
         />
-        <p className="lg:text-base text-[13px] text-647">{convertStatusToText()}</p>
+        <p className="lg:text-base text-[13px] text-647">
+          {convertStatusToText()}
+        </p>
       </div>
 
       <div className="order-first col-span-8">
-        <h2 className="lg:text-lg text-[13px] text-3A4 font-bold">Add tags for solutions</h2>
+        <h2 className="lg:text-lg text-[13px] text-3A4 font-bold">
+          Add tags for solutions
+        </h2>
         <p className="lg:text-base text-[13px] text-647 my-3">
           Easier to search for solutions based on a specific stack.
         </p>
@@ -56,7 +60,7 @@ export default function RoadmapItem({
       </div>
 
       <div className="flex justify-between mt-5">
-        <Upvote />
+        <Upvote isHorizontal={true} />
         <Comments />
       </div>
     </Link>

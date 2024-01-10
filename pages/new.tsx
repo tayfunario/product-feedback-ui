@@ -38,7 +38,7 @@ export default function New() {
       <div className="max-w-xl sm:mx-auto mx-5 pt-6 pb-14">
         <Link
           href="/suggestions"
-          className="flex justify-between items-center w-16 text-647 bold-13"
+          className="flex justify-between items-center md:w-[72px] w-16 text-647 bold-13"
         >
           <img src="/icon-arrow-left.svg" alt="arrow-left" />
           Go back

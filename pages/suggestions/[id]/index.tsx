@@ -74,7 +74,7 @@ export default function Detail({ data }) {
         <div className="flex justify-between items-center">
           <Link
             href="/suggestions"
-            className="flex justify-between items-center w-16 text-647 bold-13"
+            className="flex justify-between items-center w-[72px] text-647 bold-13"
           >
             <img src="/icon-arrow-left.svg" alt="arrow-left" />
             Go back
