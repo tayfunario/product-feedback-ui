@@ -51,8 +51,8 @@ export default function Dropdown({
         <motion.button
           key={value}
           variants={btnVariants}
-          className="flex justify-between items-center text-[13px] w-full text-647 p-3 hover:text-AD1"
-          onClick={() => callback(value)}
+          className="flex justify-between items-center md:text-base text-[13px] w-full text-647 p-3 hover:text-AD1"
+          onClick={() => callback({ value })}
         >
           {value}
           {chosen === value && <img src="/icon-check.svg" alt="check" />}

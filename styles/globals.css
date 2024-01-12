@@ -37,7 +37,13 @@ h2-bold {
 }
 
 .bold-13 {
-  @apply text-[13px] font-bold;
+  @apply text-[13px] md:text-[14px] font-bold;
+}
+
+#header-top {
+  background-image: url("/background-mobile.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .sidebar-box {
@@ -45,19 +51,19 @@ h2-bold {
 }
 
 .sidebar-item {
-  @apply inline rounded-xl px-[18px] py-2 m-1 body-3 bg-F2F text-466 hover:bg-CFD focus:bg-466 focus:text-white;
+  @apply inline rounded-xl px-[18px] py-2 m-1 body-3;
 }
 
 .button-1 {
-  @apply bg-AD1 text-F2F px-3 py-2 text-[13px] font-bold rounded-lg hover:bg-[#C75AF6];
+  @apply bg-AD1 bold-13 text-F2F px-4 md:py-3 py-2 font-bold rounded-lg hover:bg-[#C75AF6];
 }
 
 .button-2 {
-  @apply bg-466 bold-13 text-F2F px-3 py-2 rounded-lg hover:bg-[#7C91F9];
+  @apply bg-466 bold-13 text-F2F px-4 md:py-3 py-2 rounded-lg hover:bg-[#7C91F9];
 }
 
 .button-3 {
-  @apply bg-3A4 bold-13 text-F2F px-3 py-2 rounded-lg hover:bg-[#656EA3];
+  @apply bg-3A4 bold-13 text-F2F px-4 md:py-3 py-2 rounded-lg hover:bg-[#656EA3];
 }
 
 .button-4 {
@@ -65,7 +71,11 @@ h2-bold {
 }
 
 .sugg-type {
-  @apply inline rounded-xl px-4 py-[6px] body-3 bg-F2F text-466;
+  @apply inline rounded-xl px-4 py-[6px] body-3 bg-F2F text-466 capitalize;
+}
+
+.sugg-item:hover h2 {
+  @apply text-466;
 }
 
 .upvote-btn:focus .upvote-icon {

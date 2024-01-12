@@ -10,7 +10,9 @@ export default function RoadmapItem({
   status,
   title,
   upvotes,
-  willNavigate
+  willNavigate,
+  totalCommentReplyNum,
+  width,
 }: SuggestionProps) {
   function setCorrespondingColor() {
     if (status === "planned") return "bg-F49";
@@ -33,7 +35,7 @@ export default function RoadmapItem({
   return (
     <Link
       href={`/roadmap/${id}`}
-      className="relative block bg-white rounded-lg mt-5 p-5 overflow-hidden"
+      className="sugg-item relative block bg-white rounded-lg mt-5 p-5 overflow-hidden"
     >
       <div
         className={`absolute top-0 left-0 w-full h-1 ${setCorrespondingColor()}`}
@@ -43,20 +45,24 @@ export default function RoadmapItem({
         <GoDotFill
           className={`inline size-4 mr-1 my-2 ${setCorrespondingColorText()}`}
         />
-        <p className="text-[13px] text-647">{convertStatusToText()}</p>
+        <p className="lg:text-base text-[13px] text-647">
+          {convertStatusToText()}
+        </p>
       </div>
 
       <div className="order-first col-span-8">
-        <h2 className="bold-13 text-3A4">Add tags for solutions</h2>
-        <p className="text-[13px] text-647 my-3">
+        <h2 className="lg:text-lg text-[13px] text-3A4 font-bold">
+          Add tags for solutions
+        </h2>
+        <p className="lg:text-base text-[13px] text-647 my-3">
           Easier to search for solutions based on a specific stack.
         </p>
         <div className="sugg-type">Enhancement</div>
       </div>
 
       <div className="flex justify-between mt-5">
-        <Upvote />
-        <Comments />
+        <Upvote upvoteNum={upvotes} isHorizontal={true} />
+        <Comments numOfComments={totalCommentReplyNum} />
       </div>
     </Link>
   );
