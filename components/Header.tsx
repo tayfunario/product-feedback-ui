@@ -15,9 +15,16 @@ const sidebarVariants = {
   },
 };
 
-export default function Header() {
+export default function Header({
+  chosenCategory,
+  setChosenCategory,
+}: {
+  chosenCategory: string;
+  setChosenCategory: (value: { value: string }) => void;
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [width, setWidth] = useState<number>(0);
+  const [roadmapItems, setRoadmapItems] = useState<SuggestionProps[]>([]);
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -34,7 +41,20 @@ export default function Header() {
         setIsMenuOpen(false);
       }
     });
+
+    fetchRoadmapItems();
   }, []);
+
+  // prevents scrolling when sidebar is open
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "auto";
+  }, [isMenuOpen]);
+
+  const fetchRoadmapItems = async () => {
+    const res = await fetch("http://localhost:4000/roadmap");
+    const data = await res.json();
+    setRoadmapItems(data);
+  };
 
   if (width < 768) {
     return (
@@ -74,7 +94,7 @@ export default function Header() {
               animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed w-full h-screen bg-black z-40"
+              className="fixed top-0 w-full h-screen bg-black z-40"
             />
           )}
         </AnimatePresence>
@@ -87,12 +107,66 @@ export default function Header() {
           className="fixed right-0 h-screen w-72 bg-F7F p-5 z-50"
         >
           <div className="sidebar-box">
-            <button className="sidebar-item">All</button>
-            <button className="sidebar-item">UI</button>
-            <button className="sidebar-item">UX</button>
-            <button className="sidebar-item">Enhancement</button>
-            <button className="sidebar-item">Bug</button>
-            <button className="sidebar-item">Feature</button>
+            <button
+              onClick={() => setChosenCategory({ value: "all" })}
+              className={`sidebar-item ${
+                chosenCategory === "all"
+                  ? "bg-466 text-white"
+                  : "bg-F2F text-466 hover:bg-CFD"
+              }`}
+            >
+              All
+            </button>
+            <button
+              onClick={() => setChosenCategory({ value: "ui" })}
+              className={`sidebar-item ${
+                chosenCategory === "ui"
+                  ? "bg-466 text-white"
+                  : "bg-F2F text-466 hover:bg-CFD"
+              }`}
+            >
+              UI
+            </button>
+            <button
+              onClick={() => setChosenCategory({ value: "ux" })}
+              className={`sidebar-item ${
+                chosenCategory === "ux"
+                  ? "bg-466 text-white"
+                  : "bg-F2F text-466 hover:bg-CFD"
+              }`}
+            >
+              UX
+            </button>
+            <button
+              onClick={() => setChosenCategory({ value: "enhancement" })}
+              className={`sidebar-item ${
+                chosenCategory === "enhancement"
+                  ? "bg-466 text-white"
+                  : "bg-F2F text-466 hover:bg-CFD"
+              }`}
+            >
+              Enhancement
+            </button>
+            <button
+              onClick={() => setChosenCategory({ value: "bug" })}
+              className={`sidebar-item ${
+                chosenCategory === "bug"
+                  ? "bg-466 text-white"
+                  : "bg-F2F text-466 hover:bg-CFD"
+              }`}
+            >
+              Bug
+            </button>
+            <button
+              onClick={() => setChosenCategory({ value: "feature" })}
+              className={`sidebar-item ${
+                chosenCategory === "feature"
+                  ? "bg-466 text-white"
+                  : "bg-F2F text-466 hover:bg-CFD"
+              }`}
+            >
+              Feature
+            </button>
           </div>
 
           <div className="sidebar-box">
@@ -112,21 +186,33 @@ export default function Header() {
                   <GoDotFill className="text-F49 mr-2" />
                   Planned
                 </div>
-                <span className="font-bold text-647">2</span>
+                <span className="font-bold text-647">
+                  {
+                    roadmapItems.filter((item) => item.status === "planned")
+                      .length
+                  }
+                </span>
               </li>
               <li className="flex justify-between items-center">
                 <div className="flex items-center my-2 body-1 text-647">
                   <GoDotFill className="text-AD1 mr-2" />
                   In-Progress
                 </div>
-                <span className="font-bold text-647">3</span>
+                <span className="font-bold text-647">
+                  {
+                    roadmapItems.filter((item) => item.status === "in-progress")
+                      .length
+                  }
+                </span>
               </li>
               <li className="flex justify-between">
                 <div className="flex items-center body-1 text-647">
                   <GoDotFill className="text-62B mr-2" />
                   Live
                 </div>
-                <span className="font-bold text-647">1</span>
+                <span className="font-bold text-647">
+                  {roadmapItems.filter((item) => item.status === "live").length}
+                </span>
               </li>
             </ul>
           </div>
@@ -148,12 +234,66 @@ export default function Header() {
         </div>
 
         <div className="sidebar-box basis-1/3">
-          <button className="sidebar-item">All</button>
-          <button className="sidebar-item">UI</button>
-          <button className="sidebar-item">UX</button>
-          <button className="sidebar-item">Enhancement</button>
-          <button className="sidebar-item">Bug</button>
-          <button className="sidebar-item">Feature</button>
+          <button
+            onClick={() => setChosenCategory({ value: "all" })}
+            className={`sidebar-item ${
+              chosenCategory === "all"
+                ? "bg-466 text-white"
+                : "bg-F2F text-466 hover:bg-CFD"
+            }`}
+          >
+            All
+          </button>
+          <button
+            onClick={() => setChosenCategory({ value: "ui" })}
+            className={`sidebar-item ${
+              chosenCategory === "ui"
+                ? "bg-466 text-white"
+                : "bg-F2F text-466 hover:bg-CFD"
+            }`}
+          >
+            UI
+          </button>
+          <button
+            onClick={() => setChosenCategory({ value: "ux" })}
+            className={`sidebar-item ${
+              chosenCategory === "ux"
+                ? "bg-466 text-white"
+                : "bg-F2F text-466 hover:bg-CFD"
+            }`}
+          >
+            UX
+          </button>
+          <button
+            onClick={() => setChosenCategory({ value: "enhancement" })}
+            className={`sidebar-item ${
+              chosenCategory === "enhancement"
+                ? "bg-466 text-white"
+                : "bg-F2F text-466 hover:bg-CFD"
+            }`}
+          >
+            Enhancement
+          </button>
+          <button
+            onClick={() => setChosenCategory({ value: "bug" })}
+            className={`sidebar-item ${
+              chosenCategory === "bug"
+                ? "bg-466 text-white"
+                : "bg-F2F text-466 hover:bg-CFD"
+            }`}
+          >
+            Bug
+          </button>
+          <button
+            onClick={() => setChosenCategory({ value: "feature" })}
+            className={`sidebar-item ${
+              chosenCategory === "feature"
+                ? "bg-466 text-white"
+                : "bg-F2F text-466 hover:bg-CFD"
+            }`}
+          >
+            Feature
+          </button>
         </div>
 
         <div className="sidebar-box basis-1/3">
@@ -173,21 +313,33 @@ export default function Header() {
                 <GoDotFill className="text-F49 mr-2" />
                 Planned
               </div>
-              <span className="font-bold text-647">2</span>
+              <span className="font-bold text-647">
+                {
+                  roadmapItems.filter((item) => item.status === "planned")
+                    .length
+                }
+              </span>
             </li>
             <li className="flex justify-between items-center">
               <div className="flex items-center my-2 body-1 text-647">
                 <GoDotFill className="text-AD1 mr-2" />
                 In-Progress
               </div>
-              <span className="font-bold text-647">3</span>
+              <span className="font-bold text-647">
+                {
+                  roadmapItems.filter((item) => item.status === "in-progress")
+                    .length
+                }
+              </span>
             </li>
             <li className="flex justify-between">
               <div className="flex items-center body-1 text-647">
                 <GoDotFill className="text-62B mr-2" />
                 Live
               </div>
-              <span className="font-bold text-647">1</span>
+              <span className="font-bold text-647">
+                {roadmapItems.filter((item) => item.status === "live").length}
+              </span>
             </li>
           </ul>
         </div>
@@ -208,12 +360,66 @@ export default function Header() {
         </div>
 
         <div className="sidebar-box">
-          <button className="sidebar-item">All</button>
-          <button className="sidebar-item">UI</button>
-          <button className="sidebar-item">UX</button>
-          <button className="sidebar-item">Enhancement</button>
-          <button className="sidebar-item">Bug</button>
-          <button className="sidebar-item">Feature</button>
+          <button
+            onClick={() => setChosenCategory({ value: "all" })}
+            className={`sidebar-item ${
+              chosenCategory === "all"
+                ? "bg-466 text-white"
+                : "bg-F2F text-466 hover:bg-CFD"
+            }`}
+          >
+            All
+          </button>
+          <button
+            onClick={() => setChosenCategory({ value: "ui" })}
+            className={`sidebar-item ${
+              chosenCategory === "ui"
+                ? "bg-466 text-white"
+                : "bg-F2F text-466 hover:bg-CFD"
+            }`}
+          >
+            UI
+          </button>
+          <button
+            onClick={() => setChosenCategory({ value: "ux" })}
+            className={`sidebar-item ${
+              chosenCategory === "ux"
+                ? "bg-466 text-white"
+                : "bg-F2F text-466 hover:bg-CFD"
+            }`}
+          >
+            UX
+          </button>
+          <button
+            onClick={() => setChosenCategory({ value: "enhancement" })}
+            className={`sidebar-item ${
+              chosenCategory === "enhancement"
+                ? "bg-466 text-white"
+                : "bg-F2F text-466 hover:bg-CFD"
+            }`}
+          >
+            Enhancement
+          </button>
+          <button
+            onClick={() => setChosenCategory({ value: "bug" })}
+            className={`sidebar-item ${
+              chosenCategory === "bug"
+                ? "bg-466 text-white"
+                : "bg-F2F text-466 hover:bg-CFD"
+            }`}
+          >
+            Bug
+          </button>
+          <button
+            onClick={() => setChosenCategory({ value: "feature" })}
+            className={`sidebar-item ${
+              chosenCategory === "feature"
+                ? "bg-466 text-white"
+                : "bg-F2F text-466 hover:bg-CFD"
+            }`}
+          >
+            Feature
+          </button>
         </div>
 
         <div className="sidebar-box">
@@ -233,21 +439,33 @@ export default function Header() {
                 <GoDotFill className="text-F49 mr-2" />
                 Planned
               </div>
-              <span className="font-bold text-647">2</span>
+              <span className="font-bold text-647">
+                {
+                  roadmapItems.filter((item) => item.status === "planned")
+                    .length
+                }
+              </span>
             </li>
             <li className="flex justify-between items-center">
               <div className="flex items-center my-2 body-1 text-647">
                 <GoDotFill className="text-AD1 mr-2" />
                 In-Progress
               </div>
-              <span className="font-bold text-647">3</span>
+              <span className="font-bold text-647">
+                {
+                  roadmapItems.filter((item) => item.status === "in-progress")
+                    .length
+                }
+              </span>
             </li>
             <li className="flex justify-between">
               <div className="flex items-center body-1 text-647">
                 <GoDotFill className="text-62B mr-2" />
                 Live
               </div>
-              <span className="font-bold text-647">1</span>
+              <span className="font-bold text-647">
+                {roadmapItems.filter((item) => item.status === "live").length}
+              </span>
             </li>
           </ul>
         </div>

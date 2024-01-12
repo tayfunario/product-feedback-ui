@@ -2,6 +2,7 @@ import { TiPlus } from "react-icons/ti";
 import Dropdown from "./Dropdown";
 import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 export default function Top({ numOfSuggestions, sort, setSort }: TopProps) {
   const [open, setOpen] = useState<boolean>(false);
@@ -58,10 +59,13 @@ export default function Top({ numOfSuggestions, sort, setSort }: TopProps) {
           </AnimatePresence>
         </div>
 
-        <button className="button-1 flex justify-center items-center my-2">
+        <Link
+          href="/new"
+          className="button-1 flex justify-center items-center my-2"
+        >
           <TiPlus className="mr-1" />
           Add Feedback
-        </button>
+        </Link>
       </div>
     );
   } else if (width < 1024) {
@@ -113,10 +117,13 @@ export default function Top({ numOfSuggestions, sort, setSort }: TopProps) {
           </div>
         </div>
 
-        <button className="button-1 flex justify-center items-center my-2">
+        <Link
+          href="/new"
+          className="button-1 flex justify-center items-center my-2"
+        >
           <TiPlus className="mr-1" />
           Add Feedback
-        </button>
+        </Link>
       </div>
     );
   } else {
@@ -168,10 +175,13 @@ export default function Top({ numOfSuggestions, sort, setSort }: TopProps) {
           </div>
         </div>
 
-        <button className="button-1 flex justify-center items-center my-2">
+        <Link
+          href="/new"
+          className="button-1 flex justify-center items-center my-2"
+        >
           <TiPlus className="mr-1" />
           Add Feedback
-        </button>
+        </Link>
       </div>
     );
   }

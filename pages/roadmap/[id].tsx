@@ -17,17 +17,18 @@ export default function Detail({ data }) {
   return width < 768 ? (
     <Layout>
       <div className="mx-7 pt-6 pb-14">
-        <div className="flex justify-between items-center">
-          <Link
-            href="/roadmap"
-            className="flex justify-between items-center w-16 text-647 bold-13"
-          >
-            <img src="/icon-arrow-left.svg" alt="arrow-left" />
-            Go back
-          </Link>
-          <button className="button-2">Edit Feedback</button>
-        </div>
-        <Suggestion {...data.suggestion} />
+        <Link
+          href="/roadmap"
+          className="flex justify-between items-center w-16 text-647 bold-13"
+        >
+          <img src="/icon-arrow-left.svg" alt="arrow-left" />
+          Go back
+        </Link>
+        <Suggestion
+          {...data.suggestion}
+          totalCommentReplyNum={data.comments.length + data.replies.length}
+          width={width}
+        />
 
         {data.comments.length > 0 && (
           <div className="bg-white rounded-lg mt-5 p-5">
@@ -69,18 +70,19 @@ export default function Detail({ data }) {
   ) : (
     <Layout>
       <div className="2xl:max-w-3xl max-w-2xl mx-auto pt-6 pb-14">
-        <div className="flex justify-between items-center">
-          <Link
-            href="/suggestions"
-            className="flex justify-between items-center w-[72px] text-647 bold-13"
-          >
-            <img src="/icon-arrow-left.svg" alt="arrow-left" />
-            Go back
-          </Link>
-          <button className="button-2">Edit Feedback</button>
-        </div>
+        <Link
+          href="/suggestions"
+          className="flex justify-between items-center w-[72px] text-647 bold-13"
+        >
+          <img src="/icon-arrow-left.svg" alt="arrow-left" />
+          Go back
+        </Link>
 
-        <Suggestion {...data.suggestion} width={width} />
+        <Suggestion
+          {...data.suggestion}
+          totalCommentReplyNum={data.comments.length + data.replies.length}
+          width={width}
+        />
 
         {data.comments.length > 0 && (
           <div className="bg-white rounded-lg mt-5 p-5">

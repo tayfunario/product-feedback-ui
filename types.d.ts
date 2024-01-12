@@ -1,13 +1,13 @@
 interface TopProps {
   numOfSuggestions: number;
   sort: string;
-  setSort: (sort: string) => void;
+  setSort: ({ value: string }) => void;
 }
 
 interface DropdownProps {
   chosen: string;
   values: string[];
-  callback: (param: string) => void;
+  callback: ({ value: string }) => void;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   targetElem?: string;
@@ -21,6 +21,7 @@ interface SuggestionProps {
   title: string;
   upvotes: number;
   willNavigate: boolean;
+  totalCommentReplyNum: number;
   width: number;
 }
 
@@ -40,5 +41,5 @@ interface ReplyProps {
   replying_to: string;
   user_image: string;
   user_name: string;
-  width: number
+  width: number;
 }

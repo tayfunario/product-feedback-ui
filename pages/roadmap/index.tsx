@@ -7,7 +7,7 @@ import RoadmapItem from "../../components/RoadmapItem";
 
 export default function Roadmap({ data }) {
   const [chosen, setChosen] = useState<string>("planned");
-  const [roadmapItems, setRoadmapItems] = useState<SuggestionProps[]>([]);
+  const [roadmapItems, setRoadmapItems] = useState<SuggestionProps[]>(data);
   const [width, setWidth] = useState<number>(0);
 
   useEffect(() => {
@@ -20,13 +20,13 @@ export default function Roadmap({ data }) {
     setRoadmapItems(filteredData);
   }, [chosen]);
 
-  const planned = data.filter(
+  const plannedCount = data.filter(
     (item: SuggestionProps) => item.status === "planned"
   ).length;
-  const inProgress = data.filter(
+  const inProgressCount = data.filter(
     (item: SuggestionProps) => item.status === "in-progress"
   ).length;
-  const live = data.filter(
+  const liveCount = data.filter(
     (item: SuggestionProps) => item.status === "live"
   ).length;
 
@@ -58,7 +58,7 @@ export default function Roadmap({ data }) {
           }`}
           onClick={() => setChosen("planned")}
         >
-          Planned ({planned})
+          Planned ({plannedCount})
         </button>
         <button
           className={`w-full bold-13 text-3A4 border-b-4 ${
@@ -68,7 +68,7 @@ export default function Roadmap({ data }) {
           }`}
           onClick={() => setChosen("in-progress")}
         >
-          In-Progress ({inProgress})
+          In-Progress ({inProgressCount})
         </button>
         <button
           className={`w-full bold-13 text-3A4 border-b-4 ${
@@ -76,14 +76,14 @@ export default function Roadmap({ data }) {
           }`}
           onClick={() => setChosen("live")}
         >
-          Live ({live})
+          Live ({liveCount})
         </button>
       </nav>
 
       <main className="mx-7 pt-2 pb-14">
         {chosen === "planned" && (
           <>
-            <h2 className="h3-bold mt-5 text-3A4">Planned ({planned})</h2>
+            <h2 className="h3-bold mt-5 text-3A4">Planned ({plannedCount})</h2>
             <p className="text-647 text-[13px]">
               Ideas prioritized for research
             </p>
@@ -92,7 +92,7 @@ export default function Roadmap({ data }) {
         {chosen === "in-progress" && (
           <>
             <h2 className="h3-bold mt-5 text-3A4">
-              In-Progress ({inProgress})
+              In-Progress ({inProgressCount})
             </h2>
             <p className="text-647 text-[13px]">
               Features currently being developed
@@ -101,7 +101,7 @@ export default function Roadmap({ data }) {
         )}
         {chosen === "live" && (
           <>
-            <h2 className="h3-bold mt-5 text-3A4">Live ({live})</h2>
+            <h2 className="h3-bold mt-5 text-3A4">Live ({liveCount})</h2>
             <p className="text-647 text-[13px]">Released features</p>
           </>
         )}
@@ -115,6 +115,7 @@ export default function Roadmap({ data }) {
             status={item.status}
             title={item.title}
             upvotes={item.upvotes}
+            totalCommentReplyNum={item.totalCommentReplyNum}
             willNavigate={true}
             width={width}
           />
@@ -144,14 +145,17 @@ export default function Roadmap({ data }) {
         <main className="grid grid-cols-3 gap-x-4">
           <article>
             <h2 className="lg:text-lg text-sm font-bold mt-5 text-3A4">
-              Planned ({planned})
+              Planned ({plannedCount})
             </h2>
             <p className="text-647 lg:text-base text-sm">
               Ideas prioritized for research
             </p>
 
+            {/* don't use roadmapItems as it's filtered for mobile layout.
+            you can't display all the roadmap items which is necessary for desktop layout */}
             {data
               .filter((elem: SuggestionProps) => elem.status === "planned")
+              .sort((a, b) => b.upvotes - a.upvotes)
               .map((item) => (
                 <RoadmapItem
                   key={item.id}
@@ -161,6 +165,7 @@ export default function Roadmap({ data }) {
                   status={item.status}
                   title={item.title}
                   upvotes={item.upvotes}
+                  totalCommentReplyNum={item.totalCommentReplyNum}
                   willNavigate={true}
                   width={width}
                 />
@@ -169,14 +174,17 @@ export default function Roadmap({ data }) {
 
           <article>
             <h2 className="lg:text-lg text-sm font-bold mt-5 text-3A4">
-              In-Progress ({inProgress})
+              In-Progress ({inProgressCount})
             </h2>
             <p className="text-647 lg:text-base text-sm">
               Features currently being developed
             </p>
 
+            {/* don't use roadmapItems as it's filtered for mobile layout.
+            you can't display all the roadmap items which is necessary for desktop layout */}
             {data
               .filter((elem: SuggestionProps) => elem.status === "in-progress")
+              .sort((a, b) => b.upvotes + a.upvotes)
               .map((item) => (
                 <RoadmapItem
                   key={item.id}
@@ -186,6 +194,7 @@ export default function Roadmap({ data }) {
                   status={item.status}
                   title={item.title}
                   upvotes={item.upvotes}
+                  totalCommentReplyNum={item.totalCommentReplyNum}
                   willNavigate={true}
                   width={width}
                 />
@@ -194,10 +203,12 @@ export default function Roadmap({ data }) {
 
           <article>
             <h2 className="lg:text-lg text-sm font-bold mt-5 text-3A4">
-              Live ({live})
+              Live ({liveCount})
             </h2>
             <p className="text-647 lg:text-base text-sm">Released features</p>
 
+            {/* don't use roadmapItems as it's filtered for mobile layout.
+            you can't display all the roadmap items which is necessary for desktop layout */}
             {data
               .filter((elem: SuggestionProps) => elem.status === "live")
               .map((item) => (
@@ -209,6 +220,7 @@ export default function Roadmap({ data }) {
                   status={item.status}
                   title={item.title}
                   upvotes={item.upvotes}
+                  totalCommentReplyNum={item.totalCommentReplyNum}
                   willNavigate={true}
                   width={width}
                 />
@@ -227,24 +239,4 @@ export async function getServerSideProps() {
   return {
     props: { data },
   };
-}
-
-{
-  /* <div className="flex h-14 border-b">
-
-
-          {roadmapItems.map((item) => (
-            <RoadmapItem
-              key={item.id}
-              category={item.category}
-              description={item.description}
-              id={item.id}
-              status={item.status}
-              title={item.title}
-              upvotes={item.upvotes}
-              willNavigate={true}
-              width={width}
-            />
-          ))}
-        </div> */
 }

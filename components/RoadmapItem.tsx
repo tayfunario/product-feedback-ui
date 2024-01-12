@@ -11,6 +11,7 @@ export default function RoadmapItem({
   title,
   upvotes,
   willNavigate,
+  totalCommentReplyNum,
   width,
 }: SuggestionProps) {
   function setCorrespondingColor() {
@@ -60,8 +61,8 @@ export default function RoadmapItem({
       </div>
 
       <div className="flex justify-between mt-5">
-        <Upvote isHorizontal={true} />
-        <Comments />
+        <Upvote upvoteNum={upvotes} isHorizontal={true} />
+        <Comments numOfComments={totalCommentReplyNum} />
       </div>
     </Link>
   );

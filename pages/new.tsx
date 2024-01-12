@@ -6,7 +6,9 @@ import Dropdown from "../components/Dropdown";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 
 export default function New() {
-  const [category, setCategory] = useState<string>("Feature");
+  const [category, setCategory] = useState<{ value: string }>({
+    value: "Feature",
+  });
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [width, setWidth] = useState<number>(0);
 
@@ -85,7 +87,7 @@ export default function New() {
                   isOpen ? "border-466" : "border-transparent"
                 } w-full flex justify-between items-center mt-2 p-3 text-start md:text-[15px] text-[13px] bg-F7F text-3A4 rounded-lg border`}
               >
-                {category}
+                {category.value}
                 {isOpen ? (
                   <FaAngleUp className="text-466" />
                 ) : (
@@ -96,7 +98,7 @@ export default function New() {
               <AnimatePresence>
                 {isOpen && (
                   <Dropdown
-                    chosen={category}
+                    chosen={category.value}
                     values={["Feature", "UI", "UX", "Enhancement", "Bug"]}
                     callback={setCategory}
                     isOpen={isOpen}
