@@ -22,7 +22,15 @@ export default function Suggestion({
         <div>
           <h2 className="bold-13 text-3A4">{title}</h2>
           <p className="text-[13px] text-647 my-3">{description}</p>
-          <div className="sugg-type">{category}</div>
+          <div
+            className={`sugg-type ${
+              category === "ux" || category === "ui"
+                ? "uppercase"
+                : "capitalize"
+            }`}
+          >
+            {category}
+          </div>
         </div>
 
         <div className="flex justify-between mt-5">
@@ -40,7 +48,15 @@ export default function Suggestion({
         <div className="col-span-8">
           <h2 className="h3-bold text-3A4 mb-1">{title}</h2>
           <p className="text-[16px] text-647 mb-4">{description}</p>
-          <div className="sugg-type">{category}</div>
+          <div
+            className={`sugg-type ${
+              category === "ux" || category === "ui"
+                ? "uppercase"
+                : "capitalize"
+            }`}
+          >
+            {category}
+          </div>
         </div>
 
         <Comments numOfComments={totalCommentReplyNum} />
@@ -52,7 +68,15 @@ export default function Suggestion({
         <div>
           <h2 className="bold-13 text-3A4">{title}</h2>
           <p className="text-[13px] text-647 my-3">{description}</p>
-          <div className="sugg-type">{category}</div>
+          <div
+            className={`sugg-type ${
+              category === "ux" || category === "ui"
+                ? "uppercase"
+                : "capitalize"
+            }`}
+          >
+            {category}
+          </div>
         </div>
 
         <div className="flex justify-between mt-5">
@@ -66,10 +90,16 @@ export default function Suggestion({
 
         <div className="col-span-8">
           <h2 className="h3-bold text-3A4 mb-1">{title}</h2>
-          <p className="text-[16px] text-647 mb-4">
-            {description}
-          </p>
-          <div className="sugg-type">{category}</div>
+          <p className="text-[16px] text-647 mb-4">{description}</p>
+          <div
+            className={`sugg-type ${
+              category === "ux" || category === "ui"
+                ? "uppercase"
+                : "capitalize"
+            }`}
+          >
+            {category}
+          </div>
         </div>
 
         <Comments numOfComments={totalCommentReplyNum} />

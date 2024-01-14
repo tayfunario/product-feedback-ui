@@ -1,6 +1,6 @@
 import Layout from "../../components/Layout";
 import Header from "../../components/Header";
-import { useEffect, useState, MouseEvent } from "react";
+import { useEffect, useState } from "react";
 import Top from "../../components/Top";
 import Suggestion from "../../components/Suggestion";
 import Empty from "../../components/Empty";

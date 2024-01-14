@@ -27,9 +27,18 @@ export default function Detail({ data }) {
             <img src="/icon-arrow-left.svg" alt="arrow-left" />
             Go back
           </Link>
-          <button className="button-2">Edit Feedback</button>
+          <Link
+            href={`/suggestions/${data.suggestion.id}/edit`}
+            className="button-2"
+          >
+            Edit Feedback
+          </Link>
         </div>
-        <Suggestion {...data.suggestion} totalCommentReplyNum={data.comments.length + data.replies.length} width={width} />
+        <Suggestion
+          {...data.suggestion}
+          totalCommentReplyNum={data.comments.length + data.replies.length}
+          width={width}
+        />
 
         {data.comments.length > 0 && (
           <div className="bg-white rounded-lg mt-5 p-5">
@@ -79,10 +88,19 @@ export default function Detail({ data }) {
             <img src="/icon-arrow-left.svg" alt="arrow-left" />
             Go back
           </Link>
-          <button className="button-2">Edit Feedback</button>
+          <Link
+            href={`/suggestions/${data.suggestion.id}/edit`}
+            className="button-2"
+          >
+            Edit Feedback
+          </Link>
         </div>
 
-        <Suggestion {...data.suggestion} totalCommentReplyNum={data.comments.length + data.replies.length} width={width} />
+        <Suggestion
+          {...data.suggestion}
+          totalCommentReplyNum={data.comments.length + data.replies.length}
+          width={width}
+        />
 
         {data.comments.length > 0 && (
           <div className="bg-white rounded-lg mt-5 p-5">

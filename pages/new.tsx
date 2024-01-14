@@ -1,6 +1,6 @@
 import Layout from "../components/Layout";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
 import Dropdown from "../components/Dropdown";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
@@ -11,6 +11,8 @@ export default function New() {
   });
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [width, setWidth] = useState<number>(0);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -19,20 +21,42 @@ export default function New() {
 
   // Checks if inputs are empty on submit
   const checkInputs = () => {
+    let isInputEmpty = false;
     const inputs = document.querySelectorAll("input, textarea");
     inputs.forEach((input) => {
       if ((input as HTMLInputElement).value === "") {
+        isInputEmpty = true;
         input.classList.add("border-red-500");
         input.classList.remove("border-transparent");
         input.nextElementSibling!.classList.remove("invisible");
       }
     });
+
+    if (!isInputEmpty) {
+      sendToServer();
+    }
   };
 
   // Resets input style on change
   const resetInputStyle = (elem: HTMLElement) => {
     elem.classList.remove("border-red-500");
     elem.nextElementSibling!.classList.add("invisible");
+  };
+
+  const sendToServer = async () => {
+    const res = await fetch("http://localhost:4000/suggestions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: titleRef.current!.value,
+        category: category.value.toLowerCase(),
+        upvotes: 0,
+        status: "suggestion",
+        description: descriptionRef.current!.value,
+      }),
+    });
   };
 
   return (
@@ -65,6 +89,7 @@ export default function New() {
                 Add a short, descriptive headline
               </p>
               <input
+                ref={titleRef}
                 type="text"
                 className="w-full mt-2 p-3 text-[13px] md:text-[15px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
                 maxLength={60}
@@ -115,6 +140,7 @@ export default function New() {
                 etc.
               </p>
               <textarea
+                ref={descriptionRef}
                 className="w-full mt-2 px-3 py-2 md:text-[15px] text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
                 rows={4}
                 maxLength={250}

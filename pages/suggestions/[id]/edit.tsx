@@ -1,6 +1,7 @@
 import Layout from "../../../components/Layout";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useState, useEffect, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
 import Dropdown from "../../../components/Dropdown";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
@@ -10,13 +11,17 @@ export default function Edit({
 }) {
   const [isCategoryOpen, setIsCategoryOpen] = useState<boolean>(false);
   const [isStatusOpen, setIsStatusOpen] = useState<boolean>(false);
-  const [chosenCategory, setChosenCategory] = useState<string>(
-    category.charAt(0).toUpperCase() + category.slice(1)
-  );
-  const [chosenStatus, setChosenStatus] = useState<string>(
-    status.charAt(0).toUpperCase() + status.slice(1)
-  );
+  const [chosenCategory, setChosenCategory] = useState<{ value: string }>({
+    value: category.charAt(0).toUpperCase() + category.slice(1),
+  });
+  const [chosenStatus, setChosenStatus] = useState<{ value: string }>({
+    value: status.charAt(0).toUpperCase() + status.slice(1),
+  });
   const [width, setWidth] = useState<number>(0);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -25,14 +30,20 @@ export default function Edit({
 
   // Checks if inputs are empty on submit
   const checkInputs = () => {
+    let isInputEmpty = false;
     const inputs = document.querySelectorAll("input, textarea");
     inputs.forEach((input) => {
       if ((input as HTMLInputElement).value === "") {
+        isInputEmpty = true;
         input.classList.add("border-red-500");
         input.classList.remove("border-transparent");
         input.nextElementSibling!.classList.remove("invisible");
       }
     });
+
+    if (!isInputEmpty) {
+      sendToServer();
+    }
   };
 
   // Resets input style on change
@@ -41,11 +52,40 @@ export default function Edit({
     elem.nextElementSibling!.classList.add("invisible");
   };
 
+  const sendToServer = async () => {
+    const res = await fetch("http://localhost:4000/suggestions/edit", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+        title: titleRef.current!.value,
+        category: chosenCategory.value.toLowerCase(),
+        status: chosenStatus.value.toLowerCase(),
+        description: descriptionRef.current!.value,
+      }),
+    });
+
+    router.push(`/suggestions`);
+  };
+
+  const deleteSuggestion = async () => {
+    const res = await fetch("http://localhost:4000/suggestions/delete", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
+    router.push("/suggestions");
+  };
+
   return (
     <Layout>
       <div className="max-w-xl sm:mx-auto mx-5 pt-6 pb-14">
         <Link
-          href="/suggestions"
+          href={"/suggestions/" + id}
           className="flex justify-between items-center md:w-[72px] w-16 text-647 bold-13"
         >
           <img src="/icon-arrow-left.svg" alt="arrow-left" />
@@ -69,6 +109,7 @@ export default function Edit({
                 Add a short, descriptive headline
               </p>
               <input
+                ref={titleRef}
                 type="text"
                 className="w-full mt-2 p-3 text-[13px] md:text-[15px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
                 maxLength={60}
@@ -90,7 +131,7 @@ export default function Edit({
                 onClick={() => setIsCategoryOpen(!isCategoryOpen)}
                 className="flex justify-between items-center w-full mt-2 p-3 text-start md:text-[15px] text-[13px] bg-F7F text-3A4 rounded-lg border focus:border-466"
               >
-                {chosenCategory}
+                {chosenCategory.value}
                 {isCategoryOpen ? (
                   <FaAngleUp className="text-466" />
                 ) : (
@@ -101,7 +142,7 @@ export default function Edit({
               <AnimatePresence>
                 {isCategoryOpen && (
                   <Dropdown
-                    chosen={chosenCategory}
+                    chosen={chosenCategory.value}
                     values={["Feature", "UI", "UX", "Enhancement", "Bug"]}
                     callback={setChosenCategory}
                     isOpen={isCategoryOpen}
@@ -121,7 +162,7 @@ export default function Edit({
                 onClick={() => setIsStatusOpen(!isStatusOpen)}
                 className="flex justify-between items-center w-full mt-2 p-3 text-start md:text-[15px] text-[13px] bg-F7F text-3A4 rounded-lg border focus:border-466"
               >
-                {chosenStatus}
+                {chosenStatus.value}
                 {isStatusOpen ? (
                   <FaAngleUp className="text-466" />
                 ) : (
@@ -132,7 +173,7 @@ export default function Edit({
               <AnimatePresence>
                 {isStatusOpen && (
                   <Dropdown
-                    chosen={chosenStatus}
+                    chosen={chosenStatus.value}
                     values={["Suggestion", "Planned", "In-Progress", "Live"]}
                     callback={setChosenStatus}
                     isOpen={isStatusOpen}
@@ -150,6 +191,7 @@ export default function Edit({
                 etc.
               </p>
               <textarea
+                ref={descriptionRef}
                 className="w-full mt-2 px-3 py-2 md:text-[15px] text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
                 rows={4}
                 maxLength={250}
@@ -175,11 +217,21 @@ export default function Edit({
                 >
                   Cancel
                 </Link>
-                <button className="button-4 w-full mt-3">Delete</button>
+                <button
+                  className="button-4 w-full mt-3"
+                  onClick={() => deleteSuggestion()}
+                >
+                  Delete
+                </button>
               </>
             ) : (
               <div className="flex justify-between">
-                <button className="button-4 w-24">Delete</button>
+                <button
+                  className="button-4 w-24"
+                  onClick={() => deleteSuggestion()}
+                >
+                  Delete
+                </button>
 
                 <div className="flex gap-x-2">
                   <Link
@@ -189,7 +241,10 @@ export default function Edit({
                     Cancel
                   </Link>
 
-                  <button className="button-1 w-36" onClick={() => checkInputs()}>
+                  <button
+                    className="button-1 w-36"
+                    onClick={() => checkInputs()}
+                  >
                     Save Changes
                   </button>
                 </div>

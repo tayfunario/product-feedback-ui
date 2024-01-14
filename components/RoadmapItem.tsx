@@ -52,12 +52,12 @@ export default function RoadmapItem({
 
       <div className="order-first col-span-8">
         <h2 className="lg:text-lg text-[13px] text-3A4 font-bold">
-          Add tags for solutions
+          {title}
         </h2>
         <p className="lg:text-base text-[13px] text-647 my-3">
-          Easier to search for solutions based on a specific stack.
+          {description}
         </p>
-        <div className="sugg-type">Enhancement</div>
+        <div className="sugg-type">{category}</div>
       </div>
 
       <div className="flex justify-between mt-5">
