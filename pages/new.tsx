@@ -1,5 +1,6 @@
 import Layout from "../components/Layout";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
 import Dropdown from "../components/Dropdown";
@@ -13,6 +14,7 @@ export default function New() {
   const [width, setWidth] = useState<number>(0);
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -34,6 +36,7 @@ export default function New() {
 
     if (!isInputEmpty) {
       sendToServer();
+      router.push("/suggestions");
     }
   };
 
