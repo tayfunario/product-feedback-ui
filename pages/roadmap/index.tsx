@@ -43,10 +43,13 @@ export default function Roadmap({ data }) {
           </Link>
           <h2 className="h3-bold">Roadmap</h2>
         </div>
-        <button className="button-1 flex justify-center items-center my-2">
+        <Link
+          href="/new"
+          className="button-1 flex justify-center items-center my-2"
+        >
           <TiPlus className="mr-1" />
           Add Feedback
-        </button>
+        </Link>
       </header>
 
       <nav className="flex h-14 border-b">
@@ -136,10 +139,10 @@ export default function Roadmap({ data }) {
             </Link>
             <h2 className="h1-bold">Roadmap</h2>
           </div>
-          <button className="button-1 flex justify-center items-center my-2">
+          <Link href="/new" className="button-1 flex justify-center items-center my-2">
             <TiPlus className="mr-1" />
             Add Feedback
-          </button>
+          </Link>
         </header>
 
         <main className="grid grid-cols-3 gap-x-4">
