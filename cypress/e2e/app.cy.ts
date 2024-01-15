@@ -1,24 +1,31 @@
-/* eslint-disable */
-// Disable ESLint to prevent failing linting inside the Next.js repo.
-// If you're using ESLint on your project, we recommend installing the ESLint Cypress plugin instead:
-// https://github.com/cypress-io/eslint-plugin-cypress
+describe("Suggestion page", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:3000/suggestions");
+  });
 
-// Cypress E2E Test
-describe('Navigation', () => {
-  it('should navigate to the about page', () => {
-    // Start from the index page
-    cy.visit('http://localhost:3000')
+  it("should display 6 suggestions at first", () => {
+    // check if there are 6 elements with class 'sugg-item'
+    cy.get(".sugg-item").should("have.length", 6);
+  });
 
-    // Find a link with an href attribute containing "about" and click it
-    cy.get('a[href*="about"]').click()
+  it("should not present any suggestion after clicking the element with 'sidebar-item' class and 'UI' text in it", () => {
+    cy.get(".sidebar-item").contains("UI").click();
 
-    // The new url should include "/about"
-    cy.url().should('include', '/about')
+    cy.get(".sugg-item").should("have.length", 0);
+  });
 
-    // The new page should contain an h1 with "About page"
-    cy.get('h1').contains('About Page')
-  })
-})
+  it("should present one suggestion after clicking the element with 'sidebar-item' class and 'Bug' text in it", () => {
+    cy.get(".sidebar-item").contains("Bug").click();
 
-// Prevent TypeScript from reading file as legacy script
-export {}
+    cy.get(".sugg-item").should("have.length", 1);
+  });
+
+  it.only("should sort the suggestions by least upvotes after clicking [data-cy=dropdown] and selecting 'Least Upvotes'", () => {
+    cy.get("#toggle-dropdown").click();
+    cy.get("#toggle-dropdown").contains("Least Upvotes").click();
+
+    cy.get(".sugg-item").first().contains("UI");
+  });
+});
+
+export {};
