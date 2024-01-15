@@ -77,7 +77,3 @@ h2-bold {
 .sugg-item:hover h2 {
   @apply text-466;
 }
-
-.upvote-btn:focus .upvote-icon {
-  @apply text-white;
-}

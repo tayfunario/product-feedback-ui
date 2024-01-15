@@ -1,4 +1,6 @@
-import { useState } from "react";
+import next from "next";
+import { useRouter } from "next/router";
+import { useState, useRef } from "react";
 
 export default function Reply({
   comment_id,
@@ -10,8 +12,65 @@ export default function Reply({
   width,
 }: ReplyProps) {
   const [openComment, setOpenComment] = useState<boolean>(false);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+
+  const checkInput = () => {
+    let isInputEmpty = false;
+
+    if (inputRef.current!.value === "") {
+      isInputEmpty = true;
+      inputRef.current!.classList.add("border-red-500");
+      inputRef.current!.classList.remove("border-transparent");
+      inputRef.current!.nextElementSibling!.classList.remove("invisible");
+    }
+
+    if (!isInputEmpty) {
+      sendReplyToServer(inputRef.current!.value);
+    }
+  };
+
+  const checkTextarea = () => {
+    let isTextareaEmpty = false;
+
+    if (textAreaRef.current!.value === "") {
+      isTextareaEmpty = true;
+      textAreaRef.current!.classList.add("border-red-500");
+      textAreaRef.current!.classList.remove("border-transparent");
+      textAreaRef.current!.nextElementSibling!.classList.remove("invisible");
+    }
+
+    if (!isTextareaEmpty) {
+      sendReplyToServer(textAreaRef.current!.value);
+    }
+  };
+
+  const resetInputStyle = (elem: HTMLElement) => {
+    elem.classList.remove("border-red-500");
+    elem.nextElementSibling!.classList.add("invisible");
+  };
+
+  const sendReplyToServer = async (content: string) => {
+    const res = await fetch(`http://localhost:4000/reply`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content,
+        replyingTo: nick_name,
+        user_image: "image-guest.webp",
+        user_name: "Guest",
+        nick_name: "guest01",
+        comment_id,
+      }),
+    });
+    router.reload();
+  };
+
   return (
-    <div className="pt-3 border-l pl-5">
+    <div className="mt-7 border-l pl-5">
       <div className="flex items-center">
         <img
           src={`/user-images/${user_image}`}
@@ -39,21 +98,38 @@ export default function Reply({
         ? openComment && (
             <div className="text-end">
               <input
+                ref={inputRef}
                 type="textarea"
                 className="w-full mt-5 px-3 py-2 text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
                 placeholder="Type your comment here"
+                onChange={() => resetInputStyle(inputRef.current!)}
               />
-              <button className="button-1 mt-3">Post Reply</button>
+              <p className="invisible md:text-xs text-[10px] text-[#D73737]">
+                Can't be empty
+              </p>
+              <button className="button-1 mt-1" onClick={() => checkInput()}>
+                Post Reply
+              </button>
             </div>
           )
         : openComment && (
             <div className="flex justify-between items-start gap-x-4 text-end mt-5">
-              <textarea
-                className="grow px-3 py-2 md:text-[15px] text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
-                placeholder="Type your comment here"
-                rows={2}
-              />
-              <button className="button-1">Post Reply</button>
+              <div className="grow">
+                <textarea
+                  ref={textAreaRef}
+                  className="w-full px-3 py-2 md:text-[15px] text-[13px] bg-F7F text-3A4 rounded-lg border border-transparent focus:border-466 focus:outline-none"
+                  placeholder="Type your comment here"
+                  rows={2}
+                  onChange={() => resetInputStyle(textAreaRef.current!)}
+                />
+                <p className="invisible md:text-xs text-[10px] mt-[-7px] text-[#D73737]">
+                  Can't be empty
+                </p>
+              </div>
+
+              <button className="button-1" onClick={() => checkTextarea()}>
+                Post Reply
+              </button>
             </div>
           )}
     </div>

@@ -5,7 +5,9 @@ import { useState, useEffect } from "react";
 import Comment from "../../components/Comment";
 
 export default function Detail({ data }) {
-  const [totalComments, setTotalComments] = useState<number>();
+  const [totalComments, setTotalComments] = useState<number>(
+    data.comments.length + data.replies.length
+  );
   const [newComment, setNewComment] = useState<string>("");
   const [width, setWidth] = useState<number>(0);
 
@@ -71,7 +73,7 @@ export default function Detail({ data }) {
     <Layout>
       <div className="2xl:max-w-3xl max-w-2xl mx-auto pt-6 pb-14">
         <Link
-          href="/suggestions"
+          href="/roadmap"
           className="flex justify-between items-center w-[72px] text-647 bold-13"
         >
           <img src="/icon-arrow-left.svg" alt="arrow-left" />

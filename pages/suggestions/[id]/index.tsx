@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 export default function Detail({ data }) {
   const [totalComments, setTotalComments] = useState<number>(
-    data.comments.length
+    data.comments.length + data.replies.length
   );
   const [newComment, setNewComment] = useState<string>("");
   const [width, setWidth] = useState<number>(0);
@@ -53,7 +53,6 @@ export default function Detail({ data }) {
         request_id: data.suggestion.id,
       }),
     });
-
     router.reload();
   };
 

@@ -1,5 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Reply from "./Reply";
+import { useRouter } from "next/router";
 
 export default function Comment({
   data: { content, id, nick_name, request_id, user_image, user_name },
@@ -13,6 +14,7 @@ export default function Comment({
   const [openComment, setOpenComment] = useState<boolean>(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const checkInput = () => {
     let isInputEmpty = false;
@@ -24,9 +26,10 @@ export default function Comment({
       inputRef.current!.nextElementSibling!.classList.remove("invisible");
     }
 
-    // if (!isInputEmpty) {
-    //   sendToServer();
-    // }
+    if (!isInputEmpty) {
+      sendReplyToServer(inputRef.current!.value);
+      router.reload();
+    }
   };
 
   const checkTextarea = () => {
@@ -39,9 +42,27 @@ export default function Comment({
       textAreaRef.current!.nextElementSibling!.classList.remove("invisible");
     }
 
-    // if (!isInputEmpty) {
-    //   sendToServer();
-    // }
+    if (!isTextareaEmpty) {
+      sendReplyToServer(textAreaRef.current!.value);
+    }
+  };
+
+  const sendReplyToServer = async (content: string) => {
+    const res = await fetch(`http://localhost:4000/reply`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content,
+        replyingTo: nick_name,
+        user_image: "image-guest.webp",
+        user_name: "Guest",
+        nick_name: "guest01",
+        comment_id: id,
+      }),
+    });
+    router.reload();
   };
 
   const resetInputStyle = (elem: HTMLElement) => {
@@ -84,7 +105,7 @@ export default function Comment({
               <p className="invisible md:text-xs text-[10px] text-[#D73737]">
                 Can't be empty
               </p>
-              <button className="button-1 mt-3" onClick={() => checkInput()}>
+              <button className="button-1 mt-1" onClick={() => checkInput()}>
                 Post Reply
               </button>
             </div>
