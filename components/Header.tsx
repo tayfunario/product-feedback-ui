@@ -51,7 +51,7 @@ export default function Header({
   }, [isMenuOpen]);
 
   const fetchRoadmapItems = async () => {
-    const res = await fetch("http://localhost:4000/roadmap");
+    const res = await fetch("https://product-feedback-tayfunetta.onrender.com/roadmap");
     const data = await res.json();
     setRoadmapItems(data);
   };
