@@ -40,7 +40,7 @@ export default function Detail({ data }) {
   };
 
   const sendCommentToServer = async () => {
-    const res = await fetch(`http://localhost:4000/comment`, {
+    const res = await fetch(`https://product-feedback-tayfunetta.onrender.com/comment`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -201,7 +201,7 @@ export default function Detail({ data }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch("http://localhost:4000/suggestions");
+  const res = await fetch("https://product-feedback-tayfunetta.onrender.com/suggestions");
   const data = await res.json();
 
   const paths = data.map((suggestion) => ({
@@ -212,7 +212,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`http://localhost:4000/suggestions/${params.id}`);
+  const res = await fetch(
+    `https://product-feedback-tayfunetta.onrender.com/suggestions/${params.id}`
+  );
   const data = await res.json();
 
   if (!data.suggestion) {
