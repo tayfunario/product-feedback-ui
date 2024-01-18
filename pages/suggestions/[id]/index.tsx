@@ -6,6 +6,8 @@ import Comment from "../../../components/Comment";
 import { useRouter } from "next/router";
 
 export default function Detail({ data }) {
+  console.log(data);
+
   const [totalComments, setTotalComments] = useState<number>(
     data.comments.length + data.replies.length
   );
@@ -40,19 +42,22 @@ export default function Detail({ data }) {
   };
 
   const sendCommentToServer = async () => {
-    const res = await fetch(`https://product-feedback-tayfunetta.onrender.com/comment`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        content: newComment,
-        user_image: "image-guest.webp",
-        user_name: "Guest",
-        nick_name: "guest01",
-        request_id: data.suggestion.id,
-      }),
-    });
+    const res = await fetch(
+      `https://product-feedback-tayfunetta.onrender.com/comment`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: newComment,
+          user_image: "image-guest.webp",
+          user_name: "Guest",
+          nick_name: "guest01",
+          request_id: data.suggestion.id,
+        }),
+      }
+    );
     router.reload();
   };
 
@@ -201,7 +206,9 @@ export default function Detail({ data }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch("https://product-feedback-tayfunetta.onrender.com/suggestions");
+  const res = await fetch(
+    "https://product-feedback-tayfunetta.onrender.com/suggestions"
+  );
   const data = await res.json();
 
   const paths = data.map((suggestion) => ({
