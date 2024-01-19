@@ -12,8 +12,18 @@ export default function Roadmap({ data }) {
 
   useEffect(() => {
     setWidth(window.innerWidth);
-    window.addEventListener("resize", () => setWidth(window.innerWidth));
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
 
+    return () => {
+      window.removeEventListener("resize", () => {
+        setWidth(window.innerWidth);
+      });
+    };
+  }, []);
+
+  useEffect(() => {
     const filteredData = data.filter(
       (item: SuggestionProps) => item.status === chosen
     );
@@ -139,7 +149,10 @@ export default function Roadmap({ data }) {
             </Link>
             <h2 className="h1-bold">Roadmap</h2>
           </div>
-          <Link href="/new" className="button-1 flex justify-center items-center my-2">
+          <Link
+            href="/new"
+            className="button-1 flex justify-center items-center my-2"
+          >
             <TiPlus className="mr-1" />
             Add Feedback
           </Link>
@@ -236,7 +249,9 @@ export default function Roadmap({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch("https://product-feedback-tayfunetta.onrender.com/roadmap");
+  const res = await fetch(
+    "https://product-feedback-tayfunetta.onrender.com/roadmap"
+  );
   const data = await res.json();
 
   return {

@@ -14,11 +14,18 @@ export default function Index({ data }) {
     value: "Most Upvotes",
   });
   const [width, setWidth] = useState<number>(0);
+
   useEffect(() => {
     setWidth(window.innerWidth);
     window.addEventListener("resize", () => {
       setWidth(window.innerWidth);
     });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        setWidth(window.innerWidth);
+      });
+    };
   }, []);
 
   useEffect(() => {
@@ -95,7 +102,9 @@ export default function Index({ data }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch("https://product-feedback-tayfunetta.onrender.com/suggestions");
+  const res = await fetch(
+    "https://product-feedback-tayfunetta.onrender.com/suggestions"
+  );
   const data = await res.json();
 
   return {

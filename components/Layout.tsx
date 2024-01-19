@@ -1,3 +1,3 @@
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <div className="bg-F7F min-h-screen md:p-7">{children}</div>;
+  return <div className="bg-F7F h-screen overflow-auto md:p-7">{children}</div>;
 }

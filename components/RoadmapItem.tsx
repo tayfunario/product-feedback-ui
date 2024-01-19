@@ -51,7 +51,9 @@ export default function RoadmapItem({
       </div>
 
       <div className="order-first col-span-8">
-        <h2 className="lg:text-lg text-[13px] text-3A4 font-bold capitalize">{title}</h2>
+        <h2 className="lg:text-lg text-[13px] text-3A4 font-bold capitalize">
+          {title}
+        </h2>
         <p className="lg:text-base text-[13px] text-647 my-3">{description}</p>
         <div
           className={`sugg-type ${
