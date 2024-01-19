@@ -205,20 +205,20 @@ export default function Detail({ data }) {
   );
 }
 
-export async function getStaticPaths() {
-  const res = await fetch(
-    "https://product-feedback-tayfunetta.onrender.com/suggestions"
-  );
-  const data = await res.json();
+// export async function getStaticPaths() {
+//   const res = await fetch(
+//     "https://product-feedback-tayfunetta.onrender.com/suggestions"
+//   );
+//   const data = await res.json();
 
-  const paths = data.map((suggestion) => ({
-    params: { id: suggestion.id.toString() },
-  }));
+//   const paths = data.map((suggestion) => ({
+//     params: { id: suggestion.id.toString() },
+//   }));
 
-  return { paths, fallback: "blocking" };
-}
+//   return { paths, fallback: "blocking" };
+// }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const res = await fetch(
     `https://product-feedback-tayfunetta.onrender.com/suggestions/${params.id}`
   );
