@@ -250,7 +250,7 @@ export default function Roadmap({ data }) {
 
 export async function getServerSideProps() {
   const res = await fetch(
-    "https://product-feedback-tayfunetta.onrender.com/roadmap"
+    "http://localhost:4000/roadmap"
   );
   const data = await res.json();
 

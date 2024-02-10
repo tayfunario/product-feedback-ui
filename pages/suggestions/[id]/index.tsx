@@ -41,7 +41,7 @@ export default function Detail({ data }) {
 
   const sendCommentToServer = async () => {
     const res = await fetch(
-      `https://product-feedback-tayfunetta.onrender.com/comment`,
+      `http://localhost:4000/comment`,
       {
         method: "POST",
         headers: {
@@ -218,7 +218,7 @@ export default function Detail({ data }) {
 
 export async function getServerSideProps({ params }) {
   const res = await fetch(
-    `https://product-feedback-tayfunetta.onrender.com/suggestions/${params.id}`
+    `http://localhost:4000/suggestions/${params.id}`
   );
   const data = await res.json();
 

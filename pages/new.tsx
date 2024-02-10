@@ -47,7 +47,7 @@ export default function New() {
   };
 
   const sendToServer = async () => {
-    const res = await fetch("https://product-feedback-tayfunetta.onrender.com/suggestions", {
+    const res = await fetch("http://localhost:4000/suggestions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

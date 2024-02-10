@@ -103,7 +103,7 @@ export default function Index({ data }) {
 
 export async function getServerSideProps() {
   const res = await fetch(
-    "https://product-feedback-tayfunetta.onrender.com/suggestions"
+    "http://localhost:4000/suggestions"
   );
   const data = await res.json();
 
