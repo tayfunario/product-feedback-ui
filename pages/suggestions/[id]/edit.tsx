@@ -53,31 +53,37 @@ export default function Edit({
   };
 
   const sendToServer = async () => {
-    const res = await fetch("http://localhost:4000/suggestions/edit", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id,
-        title: titleRef.current!.value,
-        category: chosenCategory.value.toLowerCase(),
-        status: chosenStatus.value.toLowerCase(),
-        description: descriptionRef.current!.value,
-      }),
-    });
+    const res = await fetch(
+      "https://product-feedback-tayfunetta.onrender.com/suggestions/edit",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+          title: titleRef.current!.value,
+          category: chosenCategory.value.toLowerCase(),
+          status: chosenStatus.value.toLowerCase(),
+          description: descriptionRef.current!.value,
+        }),
+      }
+    );
 
     router.push(`/suggestions`);
   };
 
   const deleteSuggestion = async () => {
-    const res = await fetch("http://localhost:4000/suggestions/delete", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id }),
-    });
+    const res = await fetch(
+      "https://product-feedback-tayfunetta.onrender.com/suggestions/delete",
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      }
+    );
     router.push("/suggestions");
   };
 
@@ -258,7 +264,9 @@ export default function Edit({
 }
 
 export async function getStaticPaths() {
-  const res = await fetch("http://localhost:4000/suggestions");
+  const res = await fetch(
+    "https://product-feedback-tayfunetta.onrender.com/suggestions"
+  );
   const data = await res.json();
 
   const paths = data.map((suggestion) => ({
@@ -270,7 +278,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const res = await fetch(
-    `http://localhost:4000/suggestions/${params.id}/edit`
+    `https://product-feedback-tayfunetta.onrender.com/suggestions/${params.id}/edit`
   );
   const data = await res.json();
 

@@ -40,19 +40,22 @@ export default function Detail({ data }) {
   };
 
   const sendCommentToServer = async () => {
-    const res = await fetch(`http://localhost:4000/comment`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        content: newComment,
-        user_image: "image-guest.webp",
-        user_name: "Guest",
-        nick_name: "guest01",
-        request_id: data.suggestion.id,
-      }),
-    });
+    const res = await fetch(
+      "https://product-feedback-tayfunetta.onrender.com/comment",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: newComment,
+          user_image: "image-guest.webp",
+          user_name: "Guest",
+          nick_name: "guest01",
+          request_id: data.suggestion.id,
+        }),
+      }
+    );
     router.reload();
   };
 
@@ -185,7 +188,9 @@ export default function Detail({ data }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch("http://localhost:4000/roadmap");
+  const res = await fetch(
+    "https://product-feedback-tayfunetta.onrender.com/roadmap"
+  );
   const data = await res.json();
 
   const paths = data.map((suggestion) => ({
@@ -196,7 +201,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`http://localhost:4000/roadmap/${params.id}`);
+  const res = await fetch(
+    `https://product-feedback-tayfunetta.onrender.com/roadmap/${params.id}`
+  );
   const data = await res.json();
 
   if (!data.suggestion) {

@@ -52,7 +52,7 @@ export default function Reply({
   };
 
   const sendReplyToServer = async (content: string) => {
-    const res = await fetch(`http://localhost:4000/reply`, {
+    const res = await fetch(`https://product-feedback-tayfunetta.onrender.com/reply`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

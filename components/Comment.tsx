@@ -48,20 +48,23 @@ export default function Comment({
   };
 
   const sendReplyToServer = async (content: string) => {
-    const res = await fetch(`http://localhost:4000/reply`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        content,
-        replyingTo: nick_name,
-        user_image: "image-guest.webp",
-        user_name: "Guest",
-        nick_name: "guest01",
-        comment_id: id,
-      }),
-    });
+    const res = await fetch(
+      `https://product-feedback-tayfunetta.onrender.com/reply`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content,
+          replyingTo: nick_name,
+          user_image: "image-guest.webp",
+          user_name: "Guest",
+          nick_name: "guest01",
+          comment_id: id,
+        }),
+      }
+    );
     router.reload();
   };
 
