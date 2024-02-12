@@ -6,6 +6,8 @@ import Comment from "../../../components/Comment";
 import { useRouter } from "next/router";
 
 export default function Detail({ data }) {
+  console.log(data);
+
   const [totalComments, setTotalComments] = useState<number>(
     data.comments.length + data.replies.length
   );
